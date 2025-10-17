@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 import numpy as np
 
-conn = sqlite3.connect('premier_league2.db')
+conn = sqlite3.connect('premier_league.db')
 df = pd.read_sql_query('SELECT * FROM CauThu', conn)
 conn.close()
 
