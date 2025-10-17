@@ -22,8 +22,7 @@ cursor.execute("""
         Price TEXT
     )
 """)
-#cursor.execute("DELETE FROM CHUYEN_NHUONG")
-
+# cursor.execute("DELETE FROM CHUYEN_NHUONG")
 
 for _, row in result.iterrows():
     cursor.execute("""

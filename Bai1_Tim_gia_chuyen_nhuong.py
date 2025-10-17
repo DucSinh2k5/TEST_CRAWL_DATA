@@ -41,7 +41,6 @@ for page in range(1,17):
             old_team_name = old_team_div.find('div', class_ = 'transfer-club__name')
             player['Old_team'] = old_team_name.text.strip() if old_team_name else 'N/a'
 
-
         new_team_div = cols[1].find('div', class_ = 'transfer-club transfer-club--to')
         if new_team_div:
             new_team_name = new_team_div.find('div', class_ = 'transfer-club__name')
