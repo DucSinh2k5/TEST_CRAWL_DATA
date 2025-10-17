@@ -4,7 +4,6 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-
 file_path = "BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT.csv"
 df = pd.read_csv(file_path)
 
@@ -72,35 +71,4 @@ ax.set_ylabel("PC2")
 ax.set_zlabel("PC3")
 plt.title("PCA 3D (Premier League Players)")
 plt.colorbar(sc, label="Team index")
-
-plt.show()
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-import matplotlib.pyplot as plt
-
-
-inertias = []
-sil_scores = []
-K = range(2, 11)
-
-for k in K:
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    kmeans.fit(X_scaled)
-    inertias.append(kmeans.inertia_)
-    sil_scores.append(silhouette_score(X_scaled, kmeans.labels_))
-
-
-plt.figure(figsize=(12,5))
-plt.subplot(1,2,1)
-plt.plot(K, inertias, "o-")
-plt.xlabel("Số cụm k")
-plt.ylabel("Inertia (SSE)")
-plt.title("Elbow Method")
-
-
-plt.subplot(1,2,2)
-plt.plot(K, sil_scores, "o-")
-plt.xlabel("Số cụm k")
-plt.ylabel("Silhouette Score")
-plt.title("Silhouette Method")
 plt.show()
