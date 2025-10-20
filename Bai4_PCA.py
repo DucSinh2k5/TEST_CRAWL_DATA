@@ -5,42 +5,39 @@ from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
-# --- Đọc và xử lý dữ liệu ---
+
 file_path = "BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT.csv"
 df = pd.read_csv(file_path)
 
-# Xóa cột thừa
+
 if "Unnamed: 0" in df.columns:
     df = df.drop(columns=["Unnamed: 0"])
 
-# Làm sạch cột 'Min'
 df["Min"] = df["Min"].astype(str).str.replace(",", "").astype(float)
 
-# Chọn dữ liệu số (loại bỏ các cột chuỗi)
+
 X = df.drop(columns=["Player", "Nation", "Pos", "Squad"])
 
-# Chuẩn hóa dữ liệu
+
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# --- Phân cụm KMeans ---
+
 n_clusters = 5
 kmeans = KMeans(n_clusters=n_clusters, init='k-means++', max_iter=300, n_init=10, random_state=42)
 labels = kmeans.fit_predict(X_scaled)
 
-# --- Giảm chiều bằng PCA ---
+
 pca_2d = PCA(n_components=2)
 pca_3d = PCA(n_components=3)
 X_pca_2d = pca_2d.fit_transform(X_scaled)
 X_pca_3d = pca_3d.fit_transform(X_scaled)
 
-# Tạo DataFrame PCA
+
 df_pca_2d = pd.DataFrame(X_pca_2d, columns=["PC1", "PC2"])
 df_pca_2d["Cluster"] = labels
-df_pca_3d = pd.DataFrame(X_pca_3d, columns=["PC1", "PC2", "PC3"])
-df_pca_3d["Cluster"] = labels
 
-# --- Biểu đồ PCA 2D ---
+
 plt.figure(figsize=(14, 6))
 
 plt.subplot(1, 2, 1)
@@ -57,7 +54,11 @@ plt.ylabel("PC2")
 plt.legend()
 plt.grid(True, linestyle="--", alpha=0.6)
 
-# --- Biểu đồ PCA 3D ---
+
+
+df_pca_3d = pd.DataFrame(X_pca_3d, columns=["PC1", "PC2", "PC3"])
+df_pca_3d["Cluster"] = labels
+
 ax = plt.subplot(1, 2, 2, projection='3d')
 for i in range(n_clusters):
     cluster_points = df_pca_3d[df_pca_3d["Cluster"] == i]

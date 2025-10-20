@@ -8,9 +8,7 @@ from time import sleep
 import sqlite3
 
 
-
 options = webdriver.ChromeOptions()
-
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
@@ -26,12 +24,7 @@ CauThu = [
 
 # for x in CauThu:
 #     print(x)
-conn = sqlite3.connect("premier_league2.db")
-cursor = conn.cursor()
-columns_sql = ", ".join([f"'{col}' TEXT" for col in CauThu])
-cursor.execute(f"CREATE TABLE IF NOT EXISTS CauThu ({columns_sql})")
 
-conn.commit()
 #sleep : cho trang tai len
 driver.get("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats")
 sleep(1)
@@ -49,14 +42,27 @@ for row in rows:
     cols = row.find_all('td')
     if not cols:
         continue
+
     cauthu = {col: 'N/a' for col in CauThu}
+
     c=0
     for x in ((CauThu)):
         cauthu[x] = cols[c].text.strip() if cols[c].text.strip() else 'N/a'
         c+=1
+    
     minutes_value = cauthu['Min'].replace(',','')
     if(minutes_value != 'N/a' and int(minutes_value) > 90):
         data.append(cauthu)
+
+df = pd.DataFrame(data, columns=CauThu)
+df.to_csv("BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT")
+
+conn = sqlite3.connect("premier_league.db")
+cursor = conn.cursor()
+columns_sql = ", ".join([f"'{col}' TEXT" for col in CauThu])
+cursor.execute(f"CREATE TABLE IF NOT EXISTS CauThu ({columns_sql})")
+
+conn.commit()
 
 for cauthu in data:
     
@@ -69,6 +75,4 @@ conn.commit()
 conn.close()
 print("DONE: Đã lưu vào SQLite")
 #luu vao file csv
-# df = pd.DataFrame(data, columns=CauThu)
-# df.to_csv("BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT")
-# print("DONE")
+
