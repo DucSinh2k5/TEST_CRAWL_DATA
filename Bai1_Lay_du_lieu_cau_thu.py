@@ -25,6 +25,13 @@ CauThu = [
 # for x in CauThu:
 #     print(x)
 
+
+conn = sqlite3.connect("premier_league.db")
+cursor = conn.cursor()
+columns_sql = ", ".join([f"'{col}' TEXT" for col in CauThu])
+cursor.execute(f"CREATE TABLE IF NOT EXISTS CauThu ({columns_sql})")
+
+
 #sleep : cho trang tai len
 driver.get("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats")
 sleep(1)
