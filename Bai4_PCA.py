@@ -12,7 +12,6 @@ df = pd.read_csv(file_path)
 
 if "Unnamed: 0" in df.columns:
     df = df.drop(columns=["Unnamed: 0"])
-
 df["Min"] = df["Min"].astype(str).str.replace(",", "").astype(float)
 
 

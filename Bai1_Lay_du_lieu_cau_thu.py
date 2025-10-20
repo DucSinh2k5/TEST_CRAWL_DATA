@@ -61,7 +61,6 @@ conn = sqlite3.connect("premier_league.db")
 cursor = conn.cursor()
 columns_sql = ", ".join([f"'{col}' TEXT" for col in CauThu])
 cursor.execute(f"CREATE TABLE IF NOT EXISTS CauThu ({columns_sql})")
-
 conn.commit()
 
 for cauthu in data:

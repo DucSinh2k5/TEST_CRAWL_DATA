@@ -18,24 +18,30 @@ for page in range(1,17):
     else :
         url = f"https://www.footballtransfers.com/us/transfers/confirmed/most-recent/2024-2025/uk-premier-league/{page}"
     
+
     driver.get(url)
     sleep(1)
     
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
+
     table = soup.find('table', {'class': 'table table-striped table-hover leaguetable mvp-table transfer-table mb-0'})
+    #tr: lay thong tin tung cau thu 1
+
     rows = table.tbody.find_all('tr')
 
     for row in rows:
+        #lay tung cot cua cau thu
         cols = row.find_all('td')
         if not cols:
             continue
 
         player = {'Name': 'N/a', 'Old_team' : 'N/a', 'New_team' : 'N/a', 'Price':'N/a'}
-        name_span = cols[0].find('span', class_ = 'd-none')
-        
+
+        name_span = cols[0].find('span', class_ = 'd-none') 
         if name_span:
             player['Name'] = name_span.text.strip()
+            
         old_team_div = cols[1].find('div', class_ = 'transfer-club transfer-club--from')
         if old_team_div:
             old_team_name = old_team_div.find('div', class_ = 'transfer-club__name')

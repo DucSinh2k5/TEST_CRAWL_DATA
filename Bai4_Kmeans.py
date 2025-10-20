@@ -10,7 +10,6 @@ from sklearn.metrics import silhouette_score
 
 df = pd.read_csv("BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT.csv")
 
-
 if "Unnamed: 0" in df.columns:
     df = df.drop(columns=["Unnamed: 0"])
 
