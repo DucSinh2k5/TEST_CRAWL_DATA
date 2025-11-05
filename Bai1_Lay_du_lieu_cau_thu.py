@@ -22,6 +22,7 @@ CauThu = [
 URL = "https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats"
 
 def main():
+    
     options = uc.ChromeOptions()
   
     options.add_argument("--disable-blink-features=AutomationControlled")

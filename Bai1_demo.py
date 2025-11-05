@@ -1,0 +1,514 @@
+# === PHẦN 1: IMPORT THƯ VIỆN ===
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+from time import sleep
+import os
+import sqlite3
+
+# === PHẦN 2: KHỞI TẠO BIẾN VÀ TRÌNH DUYỆT ===
+
+# Danh sách tất cả các cột thuộc tính
+players = [
+    'Name', 'Nation', 'Team', 'Position', 'Age',
+    'Matches', 'Starts', 'Minutes',
+    'non_penalty_goals', 'penalty_goals', 'assists', 'yellow_cards',
+    'red_cards',
+    'xG', 'npxG', 'xAG',
+    'PrgC', 'PrgP', 'PrgR',
+    'per90_Gls', 'per90_Ast', 'per90_G+A', 'per90_G-PK',
+    'per90_G+A-PK', 'per90_xG', 'per90_xAG', 'per90_xG+xAG',
+    'per90_npxG', 'per90_npxG+xAG',
+    'GA', 'GA90', 'SoTA', 'Saves',
+    'Save%', 'W', 'D', 'L', 'CS', 'CS%',
+    'PKatt', 'PKA', 'PKSV', 'PKm', 'PK_Save%',
+    'PKA', 'FK', 'CK', 'OG', 'PSxG', 'PSxG/SoT', 'PSxG+/-', '/90', 
+    'Cmp', 'Att', 'Cmp%', 'Att(GK)', 'Thr', 'Launch%', 'Pass_AvgLen', 
+    'Att', 'Launch%', 'GK_AvgLen', 'Opp', 'Stp', 'Stp%', '#OPA', '#OPA/90', 'AvgDist',
+    'Gls', 'Sh', 'SoT', 'SoT%', 'Sh/90', 'SoT/90', 'G/Sh', 'G/SoT', 'Dist', 'FK', 'PK', 'PKatt',
+    'xG_Shooting', 'npxG_Shooting', 'npxG/Sh', 'G-xG', 'np:G-xG',
+    'Pass_Cmp', 'Pass_Att', 'Pass_Cmp%', 'TotDist', 'PrgDist',
+    'Short_Cmp', 'Short_Att', 'Short_Cmp%', 'Medium_Cmp',
+    'Medium_Att', 'Medium_Cmp%', 'Long_Cmp', 'Long_Att',
+    'Long_Cmp%', 'Ast', 'xAG', 'xA', 'A-xAG', 'KP', '1/3', 'PPA','CrsPA', 'PrgP', 
+    'Pass_Live', 'Pass_Dead', 'Pass_FK',
+    'Pass_TB', 'Pass_Sw', 'Pass_Crs', 'Pass_TI', 'Pass_CK',
+    'Corner_In', 'Corner_Out', 'Corner_Str',
+    'Pass_Cmp_Outcome', 'Pass_Off', 'Pass_Blocks',
+    'SCA', 'SCA90', 'SCA_type_PassLive', 'SCA_type_PassDead', 'SCA_type_TO', 'SCA_type_Sh', 'SCA_type_Fld', 'SCA_type_Def',
+    'GCA', 'GCA90', 'GCA_type_PassLive', 'GCA_type_PassDead', 'GCA_type_TO', 'GCA_type_Sh', 'GCA_type_Fld', 'GCA_type_Def',
+    'Tkl', 'TklW', 'Def_3rd', 'Mid_3rd', 'Att_3rd',
+    'Challenges_Tkl', 'Challenges_Att', 'Challenges_Tkl%', 'Challenges_Lost',
+    'Blocks', 'Blocks_Sh', 'Blocks_Pass', 'Blocks_Int', 'Blocks_Tkl+Int', 'Blocks_Clr', 'Blocks_Err',
+    'Touches', 'Def_Pen', 'Def_3rd', 'Mid_3rd', 'Att_3rd','Att Pen', 'Live', 'Att', 'Succ', 'Succ%', 'Tkld', 'Tkld%', 
+    'Carries', 'TotDist', 'PrgDist', 'PrgC', '1/3', 'CPA', 'Mis', 'Dis', 'Rec', 'PrgR',
+    'Mn/MP', 'Min%', 'Mn/Start', 'Compl', 'Subs', 'Mn/Sub', 'unSub', 
+    'PPM', 'onG', 'onGA', '+/-', '+/-90', 'On-Off', 
+    'onxG', 'onxGA', 'xG+/-', 'xG+/-90', 'On-Off',
+    'CrdY', 'CrdR', '2CrdY', 'Fls', 'Fld', 'Off', 'Crs', 'Int', 'TklW', 'PKwon', 'PKcon', 'OG', 'Recov', 
+    'Won', 'Lost', 'Won%'
+]
+
+
+options_chrome = webdriver.ChromeOptions()
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=options_chrome)
+#Satandart stats
+driver.get("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table = soup.find('table', {'id': 'stats_standard'})
+data = []
+
+rows = table.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all('td')
+    if not cols:
+        continue
+    
+    player = {col: "N/A" for col in players}
+    
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Nation'] = cols[1].text.strip() if cols[1].text.strip() else "N/A"
+    player['Position'] = cols[2].text.strip() if cols[2].text.strip() else "N/A"
+    player['Team'] = cols[3].text.strip() if cols[3].text.strip() else "N/A"
+    player['Age'] = cols[4].text.strip() if cols[4].text.strip() else "N/A"
+    player['Matches'] = cols[5].text.strip() if cols[5].text.strip() else "N/A"
+    player['Starts'] = cols[6].text.strip() if cols[6].text.strip() else "N/A"
+    player['Minutes'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['assists'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['non_penalty_goals'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['penalty_goals'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['yellow_cards'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['red_cards'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['xG'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['npxG'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['xAG'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['PrgC'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['PrgP'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['PrgR'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    player['per90_Gls'] = cols[25].text.strip() if cols[25].text.strip() else "N/A"
+    player['per90_Ast'] = cols[26].text.strip() if cols[26].text.strip() else "N/A"
+    player['per90_G+A'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
+    player['per90_G-PK'] = cols[28].text.strip() if cols[28].text.strip() else "N/A"
+    player['per90_G+A-PK'] = cols[29].text.strip() if cols[29].text.strip() else "N/A"
+    
+    minutes_value = player['Minutes'].replace(',', '')
+    if minutes_value != "N/A" and int(minutes_value) > 90:
+        data.append(player)
+
+#goalkeeping
+driver.get("https://fbref.com/en/comps/9/2024-2025/keepers/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_gk = soup.find('table', {'id': 'stats_keeper'})
+new_GK_data = [] 
+rows = table_gk.tbody.find_all('tr') 
+for row in rows:
+    cols = row.find_all('td')
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players} 
+    
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['GA'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['GA90'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['SoTA'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Saves'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Save%'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['W'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['D'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['L'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['CS'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['CS%'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['PKatt'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['PKA'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['PKSV'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['PKm'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['GK_Save%'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    
+    new_GK_data.append(player)
+
+#Advaned Goalkeeping
+driver.get("https://fbref.com/en/comps/9/2024-2025/keepersadv/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_adv_gk = soup.find('table', {'id': 'stats_keeper_adv'})
+adv_GK_data = []
+rows = table_adv_gk.tbody.find_all('tr')
+
+for row in rows:
+    cols = row.find_all('td')
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players} 
+    
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['PKA'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['FK'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['CK'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['OG'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['PSxG'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['PSxG/SoT'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['PSxG+/-'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['/90'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['Cmp'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['Att'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['Cmp%'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Att(GK)'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['Thr'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['Launch%'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['Pass_AvgLen'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['Att'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['Launch%'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    player['GK_AvgLen'] = cols[25].text.strip() if cols[25].text.strip() else "N/A"
+    player['Opp'] = cols[26].text.strip() if cols[26].text.strip() else "N/A"
+    player['Stp'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
+    player['Stp%'] = cols[28].text.strip() if cols[28].text.strip() else "N/A"
+    player['#OPA'] = cols[29].text.strip() if cols[29].text.strip() else "N/A"
+    player['#OPA/90'] = cols[30].text.strip() if cols[30].text.strip() else "N/A"
+    player['AvgDist'] = cols[31].text.strip() if cols[31].text.strip() else "N/A"
+    adv_GK_data.append(player)
+
+#Shooting
+driver.get("https://fbref.com/en/comps/9/2024-2025/shooting/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_shooting = soup.find('table', {'id': 'stats_shooting'})
+shooting_data = []
+rows = table_shooting.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Gls'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['Sh'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['SoT'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['SoT%'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['Sh/90'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['SoT/90'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['G/Sh'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['G/SoT'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Dist'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['FK'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['PK'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['PKatt'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['xG_Shooting'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['npxG_Shooting'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['npxG/Sh'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['G-xG'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['np:G-xG'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    shooting_data.append(player)    
+#Passing
+driver.get("https://fbref.com/en/comps/9/2024-2025/passing/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source   
+soup = BeautifulSoup(html, 'html.parser')
+table_passing = soup.find('table', {'id': 'stats_passing'})
+passing_data = []
+rows = table_passing.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Pass_Cmp'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['Pass_Att'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['Pass_Cmp%'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['TotDist'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['PrgDist'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['Short_Cmp'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Short_Att'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Short_Cmp%'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Medium_Cmp'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['Medium_Att'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['Medium_Cmp%'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['Long_Cmp'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Long_Att'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['Long_Cmp%'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['Ast'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['xAG'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['xA'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['A-xAG'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    player['KP'] = cols[25].text.strip() if cols[25].text.strip() else "N/A"
+    player['1/3'] = cols[26].text.strip() if cols[26].text.strip() else "N/A"
+    player['PPA'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
+    player['CrsPA'] = cols[28].text.strip() if cols[28].text.strip() else "N/A"
+    player['PrgP'] = cols[29].text.strip() if cols[29].text.strip() else "N/A"
+    passing_data.append(player)
+#Pass Types
+driver.get("https://fbref.com/en/comps/9/2024-2025/passing_types/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_pass_types = soup.find('table', {'id': 'stats_passing_types'})
+pass_types_data = []
+rows = table_pass_types.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Pass_Live'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['Pass_Dead'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['Pass_FK'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['Pass_TB'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['Pass_Sw'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Pass_Crs'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Pass_TI'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Pass_CK'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['Corner_In'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['Corner_Out'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['Corner_Str'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Pass_Cmp_Outcome'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['Pass_Off'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['Pass_Blocks'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    pass_types_data.append(player)
+
+#Goal and Shot Creation
+driver.get("https://fbref.com/en/comps/9/2024-2025/gca/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_gca = soup.find('table', {'id': 'stats_gca'})
+gca_data = []
+rows = table_gca.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['SCA'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['SCA90'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['SCA_type_PassLive'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['SCA_type_PassDead'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['SCA_type_TO'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['SCA_type_Sh'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['SCA_type_Fld'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['SCA_type_Def'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['GCA'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['GCA90'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['GCA_type_PassLive'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['GCA_type_PassDead'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['GCA_type_TO'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['GCA_type_Sh'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['GCA_type_Fld'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['GCA_type_Def'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    gca_data.append(player)
+#Defensive Actions
+driver.get("https://fbref.com/en/comps/9/2024-2025/defense/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_defense = soup.find('table', {'id': 'stats_defense'})
+defense_data = []
+rows = table_defense.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Tkl'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['TklW'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['Def_3rd'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['Mid_3rd'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['Att_3rd'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['Challenges_Tkl'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Challenges_Att'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Challenges_Tkl%'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Challenges_Lost'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['Blocks'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['Blocks_Sh'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['Blocks_Pass'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Blocks_Int'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['Blocks_Tkl+Int'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['Blocks_Clr'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['Blocks_Err'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    defense_data.append(player)
+#Possession
+driver.get("https://fbref.com/en/comps/9/2024-2025/possession/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_possession = soup.find('table', {'id': 'stats_possession'})
+possession_data = []
+rows = table_possession.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Touches'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['Def_Pen'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['Def_3rd'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['Mid_3rd'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['Att_3rd'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['Att Pen'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Live'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Att'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Succ'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['Succ%'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['Tkld'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['Tkld%'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Carries'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['TotDist'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['PrgDist'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['PrgC'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['1/3'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['CPA'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    player['Mis'] = cols[25].text.strip() if cols[25].text.strip() else "N/A"
+    player['Dis'] = cols[26].text.strip() if cols[26].text.strip() else "N/A"
+    player['Recov'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
+    player['PrgR'] = cols[28].text.strip() if cols[28].text.strip() else "N/A"
+    possession_data.append(player)
+#Playing Time
+driver.get("https://fbref.com/en/comps/9/2024-2025/playingtime/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_playing_time = soup.find('table', {'id': 'stats_playing_time'})
+playing_time_data = []
+rows = table_playing_time.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Mn/MP'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['Min%'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['Mn/Start'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Compl'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Subs'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['Mn/Sub'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['unSub'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['PPM'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['onG'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['onGA'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['+/-'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['+/-90'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['On-Off'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    player['onxG'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
+    player['onxGA'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
+    player['xG+/-'] = cols[25].text.strip() if cols[25].text.strip() else "N/A"
+    player['xG+/-90'] = cols[26].text.strip() if cols[26].text.strip() else "N/A"
+    player['On-Off'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
+    playing_time_data.append(player)
+#Miscellaneous Stats
+driver.get("https://fbref.com/en/comps/9/2024-2025/misc/2024-2025-Premier-League-Stats")
+sleep(1)
+html = driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+table_misc = soup.find('table', {'id': 'stats_misc'})
+misc_data = []
+rows = table_misc.tbody.find_all('tr')
+for row in rows:
+    cols = row.find_all("td")
+    if not cols:
+        continue
+    player = {col: "N/A" for col in players}
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['CrdY'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
+    player['CrdR'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
+    player['2CrdY'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['Fls'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
+    player['Fld'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['Off'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
+    player['Crs'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
+    player['Int'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
+    player['TklW'] = cols[15].text.strip() if cols[15].text.strip() else "N/A"
+    player['PKwon'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
+    player['PKcon'] = cols[17].text.strip() if cols[17].text.strip() else "N/A"
+    player['OG'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
+    player['Recov'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
+    player['Won'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['Lost'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
+    player['Won%'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
+    misc_data.append(player)
+# Combine all data into a single list
+combined_data = []
+
+
+# --- MỚI: Gom players có Minutes > 90 (đã lưu vào `data`) và merge tất cả bảng khác thành bảng lớn nhất ---
+# Tạo map theo Name từ data (standard stats filter Minutes>90)
+players_by_name = {}
+for p in data:  # `data` chứa players từ standard stats với Minutes > 90
+    name = p.get('Name')
+    if not name:
+        continue
+    players_by_name[name] = dict(p)  # copy
+
+# Các bảng bổ sung để merge vào players_by_name
+other_tables = [
+    new_GK_data, adv_GK_data, shooting_data, passing_data, pass_types_data,
+    gca_data, defense_data, possession_data, playing_time_data, misc_data
+]
+
+# Hàm merge: chỉ cập nhật những player đã có trong `players_by_name` (không thêm player mới)
+for table in other_tables:
+    for p in table:
+        name = p.get('Name')
+        if not name:
+            continue
+        # nếu player chưa có trong players_by_name (không có standard minutes > 90), bỏ qua
+        if name not in players_by_name:
+            continue
+        target = players_by_name[name]
+        for k, v in p.items():
+            if not k or k == 'Name':
+                continue
+            if v and v != "N/A":
+                target[k] = v
+
+# Kết quả combined_data là danh sách các dict (chỉ những players Minutes>90 từ standard)
+combined_data = list(players_by_name.values())
+
+
+
+try:
+    df_combined = pd.DataFrame(combined_data)
+    print("Trước khi lưu:", len(df_combined), "dòng")
+    print("Số cột:", len(df_combined.columns))
+
+    # Làm sạch cột và dữ liệu
+    df_combined = df_combined.loc[:, ~df_combined.columns.duplicated()]
+    df_combined = df_combined.replace([float('inf'), float('-inf')], None)
+    df_combined = df_combined.fillna('')
+    df_combined = df_combined.astype(str)
+
+    # Lưu CSV trước (nguồn dữ liệu chuẩn)
+    base_dir = os.path.dirname(__file__)
+    csv_path = os.path.join(base_dir, "combined_fbref_2024_25.csv")
+    df_combined.to_csv(csv_path, index=False)
+    print("Saved CSV rows:", len(df_combined))
+
+    # Đọc lại từ CSV để đảm bảo số dòng giống file CSV
+    df_csv = pd.read_csv(csv_path, dtype=str)
+    print("Rows read from CSV:", len(df_csv))
+
+    # Lưu vào premier_league.db vào bảng Cau_Thu (ghi đè)
+    premier_db = os.path.join(base_dir, "premier_league.db")
+    with sqlite3.connect(premier_db) as conn_db:
+        df_csv.to_sql("Cau_Thu", conn_db, if_exists="replace", index=False)
+        cur = conn_db.cursor()
+        cur.execute("SELECT COUNT(*) FROM Cau_Thu")
+        db_count = cur.fetchone()[0]
+
+    print(f"✅ Đã lưu {len(df_csv)} dòng vào bảng 'Cau_Thu' trong {premier_db} (DB báo: {db_count} dòng)")
+
+except Exception as e:
+    print("❌ Lỗi khi lưu dữ liệu:", e)
+
