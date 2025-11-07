@@ -465,21 +465,14 @@ for table in other_tables:
             name_to_idx[name] = len(combined_data) - 1
 
 
-base_dir = os.path.dirname(__file__)
-csv_path = os.path.join(base_dir, "combined_fbref_2024_25.csv")
-
 df_combined = pd.DataFrame(combined_data)
-df_combined.to_csv(csv_path, index=False)
+
 
 df_combined['Minutes_num'] = pd.to_numeric(df_combined['Minutes'].astype(str).str.replace(',', ''), errors='coerce')
 df_over90 = df_combined[df_combined['Minutes_num'] > 90].copy()
 
 
-
-
 df_over90.to_csv("bang1.csv", index=False)
-
-
 
 conn = sqlite3.connect("premier_league.db")
 df_over90.to_sql("Cau_Thu", conn, if_exists="replace", index=False, method="multi", chunksize=100)

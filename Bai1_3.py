@@ -36,7 +36,9 @@ for page in range(1, 23):
             "Price": price.text.strip() if price else "N/a"
         })
 
+
 driver.quit()
+
 
 df = pd.DataFrame(data)
 df.to_csv("bang3.csv", index=False, encoding="utf-8-sig")

@@ -18,7 +18,6 @@ for page in range(1,17):
     else :
         url = f"https://www.footballtransfers.com/us/transfers/confirmed/most-recent/2024-2025/uk-premier-league/{page}"
     
-
     driver.get(url)
     sleep(1)
     
@@ -64,6 +63,7 @@ for page in range(1,17):
             player['Price'] = 'N/a'
         
         data.append(player)
+        
 df= pd.DataFrame(data)
 print(df)
 df.to_csv("bang2.csv")

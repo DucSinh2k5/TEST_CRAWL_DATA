@@ -31,6 +31,7 @@ cur.execute("""
         Price TEXT
     )
 """)
+
 cur.execute("""
     CREATE TABLE IF NOT EXISTS GIA_TRI_CAU_THU (
         Name TEXT,
