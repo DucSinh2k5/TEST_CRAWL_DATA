@@ -2,7 +2,7 @@ Dự án này thu thập dưx liệu thống kê cầu thủ tại Premier Leagu
 Kết quả được lưu trữ vào cơ sở dữ liệu SQLite để phục vụ cho mục đích sau này
 
 Công nghệ sử dụng:
-- Python 3
+- Python3
 - Selenium
 - BeautifulSoup 4
-- SQLit3
+- SQLite3
