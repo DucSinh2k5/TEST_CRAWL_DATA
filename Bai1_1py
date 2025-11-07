@@ -438,77 +438,49 @@ for row in rows:
     player['Lost'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
     player['Won%'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
     misc_data.append(player)
-# Combine all data into a single list
-combined_data = []
 
+combined_data = [dict(p) for p in data]
 
-# --- MỚI: Gom players có Minutes > 90 (đã lưu vào `data`) và merge tất cả bảng khác thành bảng lớn nhất ---
-# Tạo map theo Name từ data (standard stats filter Minutes>90)
-players_by_name = {}
-for p in data:  # `data` chứa players từ standard stats với Minutes > 90
-    name = p.get('Name')
-    if not name:
-        continue
-    players_by_name[name] = dict(p)  # copy
+name_to_idx = {p.get('Name'): i for i, p in enumerate(combined_data) if p.get('Name')}
 
-# Các bảng bổ sung để merge vào players_by_name
 other_tables = [
     new_GK_data, adv_GK_data, shooting_data, passing_data, pass_types_data,
     gca_data, defense_data, possession_data, playing_time_data, misc_data
 ]
-
-# Hàm merge: chỉ cập nhật những player đã có trong `players_by_name` (không thêm player mới)
 for table in other_tables:
     for p in table:
         name = p.get('Name')
         if not name:
             continue
-        # nếu player chưa có trong players_by_name (không có standard minutes > 90), bỏ qua
-        if name not in players_by_name:
-            continue
-        target = players_by_name[name]
-        for k, v in p.items():
-            if not k or k == 'Name':
-                continue
-            if v and v != "N/A":
-                target[k] = v
-
-# Kết quả combined_data là danh sách các dict (chỉ những players Minutes>90 từ standard)
-combined_data = list(players_by_name.values())
-
+        if name in name_to_idx:
+            idx = name_to_idx[name]
+          
+            for k, v in p.items():
+                if k == 'Name' or not v or v == "N/A":
+                    continue
+                combined_data[idx][k] = v
+        else:
+         
+            combined_data.append(dict(p))
+            name_to_idx[name] = len(combined_data) - 1
 
 
-try:
-    df_combined = pd.DataFrame(combined_data)
-    print("Trước khi lưu:", len(df_combined), "dòng")
-    print("Số cột:", len(df_combined.columns))
+base_dir = os.path.dirname(__file__)
+csv_path = os.path.join(base_dir, "combined_fbref_2024_25.csv")
 
-    # Làm sạch cột và dữ liệu
-    df_combined = df_combined.loc[:, ~df_combined.columns.duplicated()]
-    df_combined = df_combined.replace([float('inf'), float('-inf')], None)
-    df_combined = df_combined.fillna('')
-    df_combined = df_combined.astype(str)
+df_combined = pd.DataFrame(combined_data)
+df_combined.to_csv(csv_path, index=False)
 
-    # Lưu CSV trước (nguồn dữ liệu chuẩn)
-    base_dir = os.path.dirname(__file__)
-    csv_path = os.path.join(base_dir, "combined_fbref_2024_25.csv")
-    df_combined.to_csv(csv_path, index=False)
-    print("Saved CSV rows:", len(df_combined))
+df_combined['Minutes_num'] = pd.to_numeric(df_combined['Minutes'].astype(str).str.replace(',', ''), errors='coerce')
+df_over90 = df_combined[df_combined['Minutes_num'] > 90].copy()
 
-    # Đọc lại từ CSV để đảm bảo số dòng giống file CSV
-    df_csv = pd.read_csv(csv_path, dtype=str)
-    print("Rows read from CSV:", len(df_csv))
 
-    # Lưu vào premier_league.db vào bảng Cau_Thu (ghi đè)
-    premier_db = os.path.join(base_dir, "premier_league.db")
-    with sqlite3.connect(premier_db) as conn_db:
-        df_csv.to_sql("Cau_Thu", conn_db, if_exists="replace", index=False)
-        cur = conn_db.cursor()
-        cur.execute("SELECT COUNT(*) FROM Cau_Thu")
-        db_count = cur.fetchone()[0]
 
-    print(f"✅ Đã lưu {len(df_csv)} dòng vào bảng 'Cau_Thu' trong {premier_db} (DB báo: {db_count} dòng)")
 
-except Exception as e:
-    print("❌ Lỗi khi lưu dữ liệu:", e)
+df_over90.to_csv("bang1.csv", index=False)
 
+
+
+conn = sqlite3.connect("premier_league.db")
+df_over90.to_sql("Cau_Thu", conn, if_exists="replace", index=False, method="multi", chunksize=100)
+conn.close()

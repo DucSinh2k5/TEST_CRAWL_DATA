@@ -66,7 +66,7 @@ for page in range(1,17):
         data.append(player)
 df= pd.DataFrame(data)
 print(df)
-df.to_csv("BANG_CHUYEN_NHUONG_CAU_THU_2024_2025.csv")
+df.to_csv("bang2.csv")
 print("DONE")
          
 
