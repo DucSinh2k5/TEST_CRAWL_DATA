@@ -176,31 +176,32 @@ print(f"Số đặc trưng: {X_train.shape[1]}")
 # # Hiển thị top 10 đặc trưng quan trọng nhất
 # print(feature_importance[['Đặc_trưng', 'Hệ_số', 'Tương_quan_với_giá']].head(10).to_string(index=False))
 
-# Tạo bản sao dữ liệu để xuất
-df_output = df.copy()
+# # Lưu file csv kết quả dự đoán cho cầu thủ trong Dataframe trên
+# # Tạo bản sao dữ liệu để xuất
+# df_output = df.copy()
 
-df_output['Age'] = df_output['Age'].astype('Int64')
+# df_output['Age'] = df_output['Age'].astype('Int64')
 
-# Tính giá dự đoán (euro)
-df_output['Predict_Price'] = model.predict(df_encoded[all_features])
+# # Tính giá dự đoán (euro)
+# df_output['Predict_Price'] = model.predict(df_encoded[all_features])
 
-# Chuyển cả giá thật và giá dự đoán sang triệu euro (M€)
-df_output['Price_M'] = df_output['Price'] / 1_000_000
-df_output['Predict_Price_M'] = df_output['Predict_Price'] / 1_000_000
+# # Chuyển cả giá thật và giá dự đoán sang triệu euro (M€)
+# df_output['Price_M'] = df_output['Price'] / 1_000_000
+# df_output['Predict_Price_M'] = df_output['Predict_Price'] / 1_000_000
 
-# Làm tròn 1 số sau dấu phẩy
-df_output['Price_M'] = df_output['Price_M'].round(1)
-df_output['Predict_Price_M'] = df_output['Predict_Price_M'].round(1)
+# # Làm tròn 1 số sau dấu phẩy
+# df_output['Price_M'] = df_output['Price_M'].round(1)
+# df_output['Predict_Price_M'] = df_output['Predict_Price_M'].round(1)
 
-# Định dạng sang kiểu "€xx.xM"
-df_output['Price_M'] = df_output['Price_M'].apply(lambda x: f"€{x}M" if pd.notna(x) else "")
-df_output['Predict_Price_M'] = df_output['Predict_Price_M'].apply(lambda x: f"€{x}M" if pd.notna(x) else "")
+# # Định dạng sang kiểu "€xx.xM"
+# df_output['Price_M'] = df_output['Price_M'].apply(lambda x: f"€{x}M" if pd.notna(x) else "")
+# df_output['Predict_Price_M'] = df_output['Predict_Price_M'].apply(lambda x: f"€{x}M" if pd.notna(x) else "")
 
-# Chọn các cột cần thiết
-output_columns = ['Name', 'Nation', 'Team', 'MainPos', 'Age', 'Price_M', 'Predict_Price_M']
-output_columns = [col for col in output_columns if col in df_output.columns]
+# # Chọn các cột cần thiết
+# output_columns = ['Name', 'Nation', 'Team', 'MainPos', 'Age', 'Price_M', 'Predict_Price_M']
+# output_columns = [col for col in output_columns if col in df_output.columns]
 
-# Xuất ra file CSV
-df_output[output_columns].to_csv('bang4.csv', index=False, encoding='utf-8-sig')
+# # Xuất ra file CSV
+# df_output[output_columns].to_csv('bang4.csv', index=False, encoding='utf-8-sig')
 
-print("\nĐã lưu file: bang4.csv")
+# print("\nĐã lưu file: bang4.csv")
