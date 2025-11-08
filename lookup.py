@@ -31,6 +31,7 @@ def lookup_by_club(club):
     else:
         print(res.json())
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Tra cứu dữ liệu cầu thủ Premier League.")
     parser.add_argument("--name", help="Tên cầu thủ cần tra cứu", default=None)
