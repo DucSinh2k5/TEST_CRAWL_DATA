@@ -17,8 +17,6 @@ cols_num = [c for c in df.columns if c not in exclude_cols]
 
 # Chuyển đổi dữ liệu sang dạng số 
 for c in cols_num:
-    # Xóa dấu phẩy trong các số có định dạng "1,234"
-    df[c] = df[c].astype(str).str.replace(',', '', regex=False)
     df[c] = pd.to_numeric(df[c], errors='coerce')
 
 
@@ -29,7 +27,7 @@ grouped = (
       .round(2)
 )
 
-# Làm phẳng tên cột: ví dụ ('Gls','mean') → 'Gls_mean'
+# Làm phẳng tên cột: ví dụ ('Gls','mean') -> 'Gls_mean'
 grouped.columns = ['_'.join(col).strip() for col in grouped.columns.values]
 grouped = grouped.copy()
 grouped.reset_index(inplace=True)
