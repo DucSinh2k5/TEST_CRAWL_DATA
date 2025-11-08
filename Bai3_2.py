@@ -1,98 +1,177 @@
-import sqlite3
 import pandas as pd
 import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_absolute_error
 
-conn = sqlite3.connect('premier_league.db')
-df_player = pd.read_sql_query('SELECT * FROM CauThu', conn)
-df_value = pd.read_sql_query('SELECT * FROM CHUYEN_NHUONG', conn)
-conn.close()
+# ĐỌC VÀ GỘP DỮ LIỆU
 
-print(f"Đã đọc dữ liệu: {len(df_player)} cầu thủ, {len(df_value)} dữ liệu chuyển nhượng")
+# Đọc dữ liệu từ 2 file CSV
+players = pd.read_csv('bang1.csv')
+prices = pd.read_csv('bang3.csv')
 
-# Chuẩn hóa tên cầu thủ để ghép dữ liệu
-df_player['Player'] = df_player['Player'].str.strip().str.lower()
-df_value['Player'] = df_value['Player'].str.strip().str.lower()
+players_clean = players.drop(['Age', 'Team'], axis=1)
+df = pd.merge(players_clean, prices, on='Name', how='inner')
 
-# Làm sạch cột Price
-def parse_price(p):
-    if pd.isna(p): 
-        return None
-    p = str(p).strip().upper()
-    if p == "FREE": return 0
-    if "M" in p:
-        try:
-            return float(p.replace("M", "")) * 1_000_000
-        except:
-            return None
-    if "K" in p:
-        try:
-            return float(p.replace("K", "")) * 1_000
-        except:
-            return None
-    return None
+print(f"Số lượng cầu thủ sau khi gộp dữ liệu: {len(df)}")
 
-df_value['Price'] = df_value['Price'].apply(parse_price)
+# LÀM SẠCH VÀ TIỀN XỬ LÝ DỮ LIỆU
 
-# Gộp dữ liệu cầu thủ và giá chuyển nhượng
-df = pd.merge(df_player, df_value, on='Player', how='left')
-df = df.drop_duplicates(subset=['Player'], keep='first')
+# Hàm chuyển đổi giá từ dạng chuỗi sang số
+def parse_price(price_value):
+    if pd.isna(price_value): 
+        return np.nan
+    price_str = str(price_value).strip().upper().replace("€", "").replace("M", "")
+    try:
+        return float(price_str) * 1_000_000
+    except:
+        return np.nan
 
-cols_num = [
-    'Age', 'Min', 'Gls', 'Ast', 'xG', 'xAG',
-    'PrgC', 'PrgP', 'CrdY', 'Price'
-]
+df['Price'] = df['Price'].apply(parse_price)
 
-cols_num = [c for c in cols_num if c in df.columns]
+df = df.dropna(subset=['Price'])
+print(f"Số lượng cầu thủ có giá hợp lệ: {len(df)}")
 
-for c in cols_num:
-    df[c] = df[c].astype(str).str.replace(',', '', regex=False)
-    df[c] = pd.to_numeric(df[c], errors='coerce')
+# Tạo biến vị trí chính từ cột Position (lấy 2 ký tự đầu)
+df['MainPos'] = df['Position'].astype(str).str.strip().str[:2]
 
-df[cols_num] = df[cols_num].fillna(0)
+# CHUYỂN ĐỔI DỮ LIỆU SỐ
 
-# Hệ số điều chỉnh theo độ tuổi (đỉnh phong độ ~ 27 tuổi)
-def age_factor(age):
-    if pd.isna(age) or age <= 0:
-        return 1
-    return max(0.5, (30 - abs(age - 27)) / 30)
+for column in df.columns:
+    if column not in ['Name', 'Nation', 'Team', 'Position', 'MainPos']:
+        df[column] = pd.to_numeric(df[column], errors='coerce')
 
-df['AgeFactor'] = df['Age'].apply(age_factor)
+# LỰA CHỌN ĐẶC TRƯNG (FEATURE SELECTION)
 
-# Hàm định giá theo vị trí
-def tinh_gia_tri(row):
-    age_factor = row['AgeFactor']
-    pos = str(row.get('Pos', '')).upper()
+# Lấy danh sách tất cả các cột có kiểu số
+numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+print(f"Tổng số cột số: {len(numeric_columns)}")
 
-    # Tiền đạo (FW)
-    if 'FW' in pos:
-        val = (0.55 * row['Gls'] + 0.3 * row['xG'] + 0.15 * row['Ast']) * age_factor * 1_800_000
+# Tạo danh sách các đặc trưng (loại bỏ cột Price vì đây là biến mục tiêu)
+features = [col for col in numeric_columns if col != 'Price']
+print(f"Số lượng đặc trưng ban đầu: {len(features)}")
 
-    # Tiền vệ (MF)
-    elif 'MF' in pos:
-        val = (0.45 * row['Ast'] + 0.35 * row['xAG'] + 0.2 * row['Gls']) * age_factor * 1_500_000
+# Điền các giá trị NaN bằng 0 để đảm bảo tính toán không bị lỗi
+df[features] = df[features].fillna(0)
 
-    # Hậu vệ (DF)
-    elif 'DF' in pos:
-        val = (0.4 * row['PrgC'] + 0.3 * row['PrgP'] + 0.3 * (1 - row['CrdY'] / 10)) * age_factor * 1_200_000
+# Tính toán tương quan giữa các đặc trưng và giá
+price_correlations = df[features].corrwith(df['Price']).abs()
 
-    # Thủ môn (GK)
-    elif 'GK' in pos:
-        val = (0.6 * (1 - row['CrdY'] / 10) + 0.4 * row['Min'] / 3000) * age_factor * 900_000
+# Chọn các đặc trưng có tương quan > 0.1 với giá
+selected_features = price_correlations[price_correlations > 0.1].index.tolist()
+print(f"\nSố lượng đặc trưng được chọn (tương quan > 0.1): {len(selected_features)}")
 
-    # Vị trí không xác định
+# XỬ LÝ ĐA CỘNG TUYẾN
+
+# Tính ma trận tương quan giữa các đặc trưng được chọn
+correlation_matrix = df[selected_features].corr().abs()
+
+# Tìm các cặp đặc trưng có tương quan cao (> 0.7)
+high_correlation_pairs = []
+columns_to_remove = set()
+
+# Duyệt qua ma trận tương quan để tìm các cặp có tương quan cao
+for i in range(len(correlation_matrix.columns)):
+    for j in range(i + 1, len(correlation_matrix.columns)):
+        correlation_value = correlation_matrix.iloc[i, j]
+        if correlation_value > 0.7:  # Ngưỡng tương quan
+            feature1 = correlation_matrix.columns[i]
+            feature2 = correlation_matrix.columns[j]
+            high_correlation_pairs.append((feature1, feature2, correlation_value))
+
+print(f"Tìm thấy {len(high_correlation_pairs)} cặp đặc trưng có tương quan > 0.7")
+
+# Với mỗi cặp tương quan cao, giữ lại đặc trưng có tương quan cao hơn với Price
+for feature1, feature2, corr_value in high_correlation_pairs:
+    if feature1 in columns_to_remove or feature2 in columns_to_remove:
+        continue  # Đã được chọn để loại bỏ
+    
+    # So sánh tương quan với Price, giữ lại đặc trưng có tương quan cao hơn
+    corr1_with_price = price_correlations[feature1]
+    corr2_with_price = price_correlations[feature2]
+    
+    if corr1_with_price >= corr2_with_price:
+        columns_to_remove.add(feature2)
     else:
-        val = (0.4 * row['Gls'] + 0.3 * row['Ast'] + 0.3 * row['xG']) * age_factor * 1_300_000
+        columns_to_remove.add(feature1)
 
-    return round(val, 1)
+# Loại bỏ các đặc trưng đã chọn
+final_features = [feature for feature in selected_features if feature not in columns_to_remove]
+print(f"Số lượng đặc trưng sau khi xử lý đa cộng tuyến: {len(final_features)}")
 
-df['GiaTriUocLuong'] = df.apply(tinh_gia_tri, axis=1)
+# MÃ HÓA BIẾN PHÂN LOẠI (ONE-HOT ENCODING)
 
-cols_out = [
-    'Player', 'Pos', 'Squad', 'Age', 'Min', 'Gls', 'Ast', 'xG', 'xAG',
-    'PrgC', 'PrgP', 'CrdY', 'Price', 'GiaTriUocLuong'
-]
-cols_out = [c for c in cols_out if c in df.columns]
+# Tạo biến giả (dummy variables) cho vị trí cầu thủ
+# Ví dụ: MainPos = 'DF' sẽ tạo cột Pos_DF = 1, các cột Pos khác = 0
+df_encoded = pd.get_dummies(df, columns=['MainPos'], prefix='Pos')
 
-df_out = df[cols_out]
-df_out.to_csv('DINH_GIA_CAU_THU.csv', index=False, encoding='utf-8-sig')
-print("Đã lưu file: DINH_GIA_CAU_THU.csv")
+# Lấy danh sách các cột vị trí đã được mã hóa
+position_features = [col for col in df_encoded.columns if col.startswith('Pos_')]
+
+# Kết hợp đặc trưng số và đặc trưng vị trí
+all_features = final_features + position_features
+print(f"Tổng số đặc trưng cuối cùng: {len(all_features)}")
+
+# CHUẨN BỊ DỮ LIỆU CHO MÔ HÌNH
+
+# Tách biến độc lập (X) và biến phụ thuộc (y)
+X = df_encoded[all_features] 
+y = df_encoded['Price']  
+
+print(f"\nKích thước dữ liệu:")
+print(f"X (đặc trưng): {X.shape}")
+print(f"y (giá trị): {y.shape}")
+
+# Chia dữ liệu thành tập huấn luyện (80%) và tập kiểm tra (20%)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, 
+    test_size=0.2,       # 20% cho kiểm tra
+    random_state=42      # Seed cố định để kết quả có thể tái lập
+)
+
+print(f"\nChia dữ liệu thành:")
+print(f"Tập huấn luyện: {X_train.shape[0]} mẫu")
+print(f"Tập kiểm tra: {X_test.shape[0]} mẫu")
+
+# HUẤN LUYỆN MÔ HÌNH HỒI QUY TUYẾN TÍNH
+
+# Khởi tạo mô hình hồi quy tuyến tính
+model = LinearRegression()
+
+# Huấn luyện mô hình trên tập huấn luyện
+model.fit(X_train, y_train)
+
+# ĐÁNH GIÁ MÔ HÌNH
+
+# Dự đoán giá trên tập kiểm tra
+y_pred = model.predict(X_test)
+
+# Tính các chỉ số đánh giá
+r2 = r2_score(y_test, y_pred)              
+mae = mean_absolute_error(y_test, y_pred)     
+
+print("\nKẾT QUẢ MÔ HÌNH HỒI QUY TUYẾN TÍNH\n")
+print(f"R² Score: {r2:.3f}")
+print(f"MAE: {mae:,.0f}")
+print(f"Số mẫu huấn luyện: {X_train.shape[0]}")
+print(f"Số mẫu kiểm tra: {X_test.shape[0]}")
+print(f"Số đặc trưng: {X_train.shape[1]}")
+
+# # PHÂN TÍCH Ý NGHĨA CÁC HỆ SỐ
+
+# print("\nTOP 10 ĐẶC TRƯNG QUAN TRỌNG NHẤT")
+
+# # Tạo DataFrame để hiển thị hệ số của các đặc trưng
+# feature_importance = pd.DataFrame({
+#     'Đặc_trưng': all_features,
+#     'Hệ_số': model.coef_,
+#     'Tương_quan_với_giá': [price_correlations.get(feature, 0) if feature in price_correlations else 0 
+#                           for feature in all_features]
+# })
+
+# # Sắp xếp theo giá trị tuyệt đối của hệ số (độ quan trọng)
+# feature_importance['|Hệ_số|'] = np.abs(feature_importance['Hệ_số'])
+# feature_importance = feature_importance.sort_values('|Hệ_số|', ascending=False)
+
+# # Hiển thị top 10 đặc trưng quan trọng nhất
+# print(feature_importance[['Đặc_trưng', 'Hệ_số', 'Tương_quan_với_giá']].head(10).to_string(index=False))
