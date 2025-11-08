@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from time import sleep
 import os
 import sqlite3
+import shutil
 
 # === PHẦN 2: KHỞI TẠO BIẾN VÀ TRÌNH DUYỆT ===
 
@@ -474,6 +475,15 @@ df_over90 = df_combined[df_combined['Minutes_num'] > 90].copy()
 
 df_over90.to_csv("bang1.csv", index=False)
 
-conn = sqlite3.connect("premier_league.db")
+
+base_dir = os.path.dirname(__file__)
+db_path = os.path.join(base_dir, "premier_league.db")
+
+conn = sqlite3.connect(db_path)
 df_over90.to_sql("Cau_Thu", conn, if_exists="replace", index=False, method="multi", chunksize=100)
 conn.close()
+
+conn2 = sqlite3.connect("premier_league.db")
+df_over90.to_sql("Cau_Thu", conn2, if_exists="replace", index=False, method="multi", chunksize=100)
+conn2.close()
+
