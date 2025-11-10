@@ -31,7 +31,6 @@ n_clusters = 3
 kmeans = KMeans(n_clusters=n_clusters, init='k-means++', max_iter=300, n_init=10, random_state=42)
 labels = kmeans.fit_predict(X_scaled)
 
-
 pca_2d = PCA(n_components=2)
 pca_3d = PCA(n_components=3)
 X_pca_2d = pca_2d.fit_transform(X_scaled)

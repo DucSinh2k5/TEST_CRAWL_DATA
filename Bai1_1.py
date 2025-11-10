@@ -73,7 +73,6 @@ for row in rows:
     cols = row.find_all('td')
     if not cols:
         continue
-    
     player = {col: "N/A" for col in players}
     
     player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"

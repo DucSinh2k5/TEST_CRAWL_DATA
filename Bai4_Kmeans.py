@@ -53,7 +53,6 @@ for k in k_values:
     silhouette_list.append(silhouette)
   
 
-
 plt.figure(figsize=(8,6))
 plt.plot(k_values, overall_mse_list, marker='o', linewidth=2, color='tab:blue')
 plt.xlabel("Số cụm (k)", fontsize=12)

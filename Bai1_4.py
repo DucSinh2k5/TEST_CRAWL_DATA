@@ -55,7 +55,6 @@ for _, row in result.iterrows():
 for _, row in result1.iterrows():
     cur.execute("INSERT INTO GIA_TRI_CAU_THU VALUES (?, ?, ?, ?)", tuple(row))
 
-
 conn.commit()
 conn.close()
 
