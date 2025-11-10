@@ -1,0 +1,538 @@
+﻿Name,Age,Team,Price
+Erling Haaland,25,Manchester City,€150.4M
+Florian Wirtz,22,Liverpool FC,€138.1M
+Alexander Isak,26,Liverpool FC,€132.1M
+Alexis Mac Allister,26,Liverpool FC,€117M
+Declan Rice,26,Arsenal FC,€114.8M
+Moisés Caicedo,24,Chelsea,€114.1M
+Cole Palmer,23,Chelsea,€111M
+Ryan Gravenberch,23,Liverpool FC,€106M
+Bukayo Saka,24,Arsenal FC,€97.5M
+Rodri,29,Manchester City,€90.5M
+Josko Gvardiol,23,Manchester City,€82.2M
+Enzo Fernández,24,Chelsea,€81.9M
+Dominik Szoboszlai,25,Liverpool FC,€80.2M
+Tijjani Reijnders,27,Manchester City,€79.3M
+Hugo Ekitiké,23,Liverpool FC,€79.2M
+Bruno Guimarães,27,Newcastle United,€78.4M
+William Saliba,24,Arsenal FC,€77.2M
+Martin Ødegaard,26,Arsenal FC,€76.9M
+Xavi Simons,22,Tottenham,€76.7M
+Benjamin Šeško,22,Manchester United,€76.1M
+Viktor Gyökeres,27,Arsenal FC,€75M
+João Pedro,24,Chelsea,€74.7M
+Omar Marmoush,26,Manchester City,€74M
+Phil Foden,25,Manchester City,€73.8M
+Nick Woltemade,23,Newcastle United,€73.8M
+Cody Gakpo,26,Liverpool FC,€73.8M
+Eberechi Eze,27,Arsenal FC,€73.7M
+Estêvão,18,Chelsea,€73.6M
+Milos Kerkez,22,Liverpool FC,€68.7M
+Jurriën Timber,24,Arsenal FC,€68.1M
+Morgan Gibbs-White,25,Nottingham Forest,€67.5M
+Carlos Baleba,21,Brighton & Hove Albion,€66.9M
+Savinho,21,Manchester City,€66.7M
+Morgan Rogers,23,Aston Villa,€66.2M
+Jérémy Doku,23,Manchester City,€65.8M
+Sandro Tonali,25,Newcastle United,€65.6M
+Leny Yoro,19,Manchester United,€65.5M
+Murillo,23,Nottingham Forest,€65.2M
+Bryan Mbeumo,26,Manchester United,€64.9M
+Ollie Watkins,29,Aston Villa,€64.7M
+Jamie Gittens,21,Chelsea,€64.4M
+Mohammed Kudus,25,Tottenham,€63.9M
+Pedro Neto,25,Chelsea,€62.7M
+Kobbie Mainoo,20,Manchester United,€62.7M
+Lucas Paquetá,28,West Ham United,€62.5M
+Kai Havertz,26,Arsenal FC,€62.2M
+Adam Wharton,21,Crystal Palace,€62.1M
+Piero Hincapié,23,Arsenal FC,€61.8M
+Matheus Cunha,26,Manchester United,€61.7M
+Elliot Anderson,23,Nottingham Forest,€61.7M
+Micky van de Ven,24,Tottenham,€60.4M
+Gabriel Magalhães,27,Arsenal FC,€59.3M
+Jeremie Frimpong,24,Liverpool FC,€58.8M
+Alejandro Garnacho,21,Chelsea,€58.4M
+Dejan Kulusevski,25,Tottenham,€57.7M
+Rico Lewis,20,Manchester City,€55.9M
+Levi Colwill,22,Chelsea,€55.9M
+Jorrel Hato,19,Chelsea,€55.6M
+Tino Livramento,22,Newcastle United,€55.5M
+Rúben Dias,28,Manchester City,€55.4M
+Lucas Bergvall,19,Tottenham,€55.2M
+Yankuba Minteh,21,Brighton & Hove Albion,€55M
+Martín Zubimendi,26,Arsenal FC,€54.4M
+Anthony Elanga,23,Newcastle United,€53.4M
+Archie Gray,19,Tottenham,€52.8M
+Manuel Ugarte,24,Manchester United,€52.6M
+Destiny Udogie,22,Tottenham,€52.4M
+Mathys Tel,20,Tottenham,€51.4M
+Cristian Romero,27,Tottenham,€51.3M
+Pedro Porro,26,Tottenham,€51.3M
+Gianluigi Donnarumma,26,Manchester City,€51.3M
+Antoine Semenyo,25,Bournemouth,€51.1M
+Noni Madueke,23,Arsenal FC,€50.5M
+Boubacar Kamara,25,Aston Villa,€50.3M
+João Gomes,24,Wolverhampton Wanderers,€50.3M
+Curtis Jones,24,Liverpool FC,€50.1M
+Riccardo Calafiori,23,Arsenal FC,€50.1M
+Brennan Johnson,24,Tottenham,€49.4M
+Liam Delap,22,Chelsea,€49.4M
+Amad Diallo,23,Manchester United,€49.3M
+Rayan Aït-Nouri,24,Manchester City,€49.3M
+Nico González,23,Manchester City,€48.8M
+Amadou Onana,24,Aston Villa,€48.7M
+Jörgen Strand Larsen,25,Wolverhampton Wanderers,€48.1M
+Jarrod Bowen,28,West Ham United,€47.7M
+Bart Verbruggen,23,Brighton & Hove Albion,€47.2M
+Anthony Gordon,24,Newcastle United,€47.2M
+Matthijs de Ligt,26,Manchester United,€47.2M
+Dominic Solanke,28,Tottenham,€46.6M
+Andrey Santos,21,Chelsea,€46.4M
+Rayan Cherki,22,Manchester City,€46.2M
+Abdukodir Khusanov,21,Manchester City,€46.1M
+Nikola Milenković,28,Nottingham Forest,€45.9M
+Jacob Ramsey,24,Newcastle United,€45.8M
+Ethan Nwaneri,18,Arsenal FC,€45.6M
+James Maddison,28,Tottenham,€45.5M
+Myles Lewis-Skelly,19,Arsenal FC,€45.5M
+Marc Guéhi,25,Crystal Palace,€45.2M
+Pape Matar Sarr,23,Tottenham,€45.2M
+Roméo Lavia,21,Chelsea,€44.9M
+Marc Cucurella,27,Chelsea,€44.8M
+Habib Diarra,21,Sunderland AFC,€44.7M
+Dilane Bakwa,23,Nottingham Forest,€44.3M
+Bafodé Diakité,24,Bournemouth,€44.1M
+Gabriel Martinelli,24,Arsenal FC,€44.1M
+Maxence Lacroix,25,Crystal Palace,€43.9M
+Ben White,28,Arsenal FC,€43.9M
+Justin Kluivert,26,Bournemouth,€43.3M
+Iliman Ndiaye,25,Everton FC,€43.2M
+Sven Botman,25,Newcastle United,€43.2M
+Reece James,25,Chelsea,€42.5M
+Trevoh Chalobah,26,Chelsea,€41.7M
+Yéremy Pino,23,Crystal Palace,€41.6M
+Georginio Rutter,23,Brighton & Hove Albion,€41.3M
+Giorgi Mamardashvili,25,Liverpool FC,€41.3M
+Ibrahima Konaté,26,Liverpool FC,€41.3M
+Ezri Konsa,28,Aston Villa,€41.1M
+Youri Tielemans,28,Aston Villa,€40.9M
+Antonee Robinson,28,Fulham FC,€40.9M
+Mikel Merino,29,Arsenal FC,€40.5M
+Mohamed Salah,33,Liverpool FC,€40.1M
+Harvey Barnes,27,Newcastle United,€39.8M
+Joelinton,29,Newcastle United,€39.7M
+Guglielmo Vicario,29,Tottenham,€39.2M
+Harvey Elliott,22,Aston Villa,€39.2M
+Kevin Schade,23,Brentford FC,€39M
+Brajan Gruda,21,Brighton & Hove Albion,€38.7M
+Oscar Bobb,22,Manchester City,€38.6M
+André,24,Wolverhampton Wanderers,€38.5M
+Ismaïla Sarr,27,Crystal Palace,€38.4M
+Jan Paul van Hecke,25,Brighton & Hove Albion,€38.3M
+Mikkel Damsgaard,25,Brentford FC,€38.2M
+Yasin Ayari,22,Brighton & Hove Albion,€38.2M
+Mykhaylo Mudryk,24,Chelsea,€37.8M
+Djed Spence,25,Tottenham,€37.7M
+Diogo Dalot,26,Manchester United,€37.7M
+Jean-Philippe Mateta,28,Crystal Palace,€37.6M
+Arnaud Kalimuendo,23,Nottingham Forest,€37.6M
+Lisandro Martínez,27,Manchester United,€37.1M
+Kaoru Mitoma,28,Brighton & Hove Albion,€36.9M
+Evann Guessand,24,Aston Villa,€36.9M
+Dango Ouattara,23,Brentford FC,€36.8M
+Lewis Hall,21,Newcastle United,€36.8M
+Randal Kolo Muani,26,Tottenham,€36.4M
+Djordje Petrovic,26,Bournemouth,€36.2M
+Joshua Zirkzee,24,Manchester United,€36.1M
+Emile Smith Rowe,25,Fulham FC,€35.8M
+Mason Mount,26,Manchester United,€35.7M
+Bruno Fernandes,31,Manchester United,€35.7M
+Tyler Dibling,19,Everton FC,€35M
+Calvin Bassey,25,Fulham FC,€34.9M
+Malick Thiaw,24,Newcastle United,€34.1M
+Alex Iwobi,29,Fulham FC,€34.1M
+João Palhinha,30,Tottenham,€33.6M
+Cristhian Mosquera,21,Arsenal FC,€32.6M
+James Trafford,23,Manchester City,€32.5M
+Nico O'Reilly,20,Manchester City,€32.1M
+Malo Gusto,22,Chelsea,€32.1M
+Callum Hudson-Odoi,25,Nottingham Forest,€31.7M
+Charalampos Kostoulas,18,Brighton & Hove Albion,€31.6M
+Patrick Dorgu,21,Manchester United,€31.3M
+David Raya,30,Arsenal FC,€31M
+Dan Ndoye,25,Nottingham Forest,€31M
+Nathan Collins,24,Brentford FC,€30.9M
+Conor Bradley,22,Liverpool FC,€30.7M
+Maxime Estève,23,Burnley FC,€30.6M
+Vitaliy Mykolenko,26,Everton FC,€30.4M
+Michael Kayode,21,Brentford FC,€30.4M
+Sander Berge,27,Fulham FC,€30.4M
+Yegor Yarmolyuk,21,Brentford FC,€30M
+Sepp van den Berg,23,Brentford FC,€29.8M
+Jack Grealish,30,Everton FC,€29.7M
+Joachim Andersen,29,Fulham FC,€29.7M
+Evanilson,26,Bournemouth,€29.5M
+Bernardo Silva,31,Manchester City,€29.4M
+Keane Lewis-Potter,24,Brentford FC,€29.1M
+Dário Essugo,20,Chelsea,€29.1M
+El Hadji Malick Diouf,20,West Ham United,€29M
+Yoane Wissa,29,Newcastle United,€28.8M
+Dean Henderson,28,Crystal Palace,€28.7M
+Lewis Miley,19,Newcastle United,€28.5M
+Jaydee Canvot,19,Crystal Palace,€28.4M
+Daniel Muñoz,29,Crystal Palace,€28.4M
+Noussair Mazraoui,27,Manchester United,€28.4M
+Radu Drăgușin,23,Tottenham,€28.3M
+Alex Scott,22,Bournemouth,€28.2M
+Neco Williams,24,Nottingham Forest,€28.1M
+Simon Adingra,23,Sunderland AFC,€28.1M
+Jarrad Branthwaite,23,Everton FC,€28.1M
+Thierno Barry,23,Everton FC,€28M
+Tyrick Mitchell,26,Crystal Palace,€28M
+Stefanos Tzimas,19,Brighton & Hove Albion,€28M
+Wilson Odobert,20,Tottenham,€27.8M
+Douglas Luiz,27,Nottingham Forest,€27.8M
+Chemsdine Talbi,20,Sunderland AFC,€27.6M
+Facundo Buonanotte,20,Chelsea,€27.5M
+Ferdi Kadıoğlu,26,Brighton & Hove Albion,€27.5M
+Wesley Fofana,24,Chelsea,€27.5M
+Antoni Milambo,20,Brentford FC,€27.5M
+Tolu Arokodare,24,Wolverhampton Wanderers,€27.3M
+Kiernan Dewsbury-Hall,27,Everton FC,€27.2M
+Lesley Ugochukwu,21,Burnley FC,€26.5M
+Wilfried Gnonto,22,Leeds United,€26.4M
+Rodrigo Bentancur,28,Tottenham,€26.3M
+Omari Hutchinson,22,Nottingham Forest,€26.3M
+Crysencio Summerville,24,West Ham United,€26M
+Matheus Nunes,27,Manchester City,€25.7M
+Brian Brobbey,23,Sunderland AFC,€25.6M
+James McAtee,23,Nottingham Forest,€25.6M
+Tyler Adams,26,Bournemouth,€25.6M
+Benoît Badiashile,24,Chelsea,€25.6M
+Igor Thiago,24,Brentford FC,€25.5M
+Aaron Wan-Bissaka,27,West Ham United,€25.5M
+Pau Torres,28,Aston Villa,€25.3M
+Amine Adli,25,Bournemouth,€25.2M
+Maxim De Cuyper,24,Brighton & Hove Albion,€25M
+Caoimhín Kelleher,26,Brentford FC,€24.9M
+Igor Jesus,24,Nottingham Forest,€24.9M
+Ola Aina,29,Nottingham Forest,€24.9M
+Axel Disasi,27,Chelsea,€24.8M
+Ibrahima Sangaré,27,Nottingham Forest,€24.8M
+Robert Sánchez,27,Chelsea,€24.7M
+Cheick Doucouré,25,Crystal Palace,€24.7M
+Ben Gannon-Doak,19,Bournemouth,€24.6M
+Maximilian Kilman,28,West Ham United,€24.5M
+Tyrique George,19,Chelsea,€24.4M
+Noah Sadiki,20,Sunderland AFC,€24.1M
+Emmanuel Agbadou,28,Wolverhampton Wanderers,€23.8M
+Ian Maatsen,23,Aston Villa,€23.8M
+Veljko Milosavljevic,18,Bournemouth,€23.8M
+Luis Guilherme,19,West Ham United,€23.7M
+Tosin Adarabioyo,28,Chelsea,€23.6M
+Jake O'Brien,24,Everton FC,€23.3M
+Mateus Fernandes,21,West Ham United,€23.2M
+Álex Jiménez,20,Bournemouth,€23M
+Giovanni Leoni,19,Liverpool FC,€22.9M
+Matty Cash,28,Aston Villa,€22.8M
+Filip Jørgensen,23,Chelsea,€22.6M
+Jean-Clair Todibo,25,West Ham United,€22.6M
+Kevin Danso,27,Tottenham,€22.2M
+Rio Ngumoha,17,Liverpool FC,€21.7M
+Ethan Ampadu,25,Leeds United,€21.7M
+Mads Hermansen,25,West Ham United,€21.6M
+Eddie Nketiah,26,Crystal Palace,€21.4M
+Jaka Bijol,26,Leeds United,€21.3M
+Marcus Tavernier,26,Bournemouth,€21.3M
+Enzo Le Fée,25,Sunderland AFC,€21.3M
+Adrien Truffert,23,Bournemouth,€21M
+Dwight McNeil,25,Everton FC,€21M
+Jean-Ricner Bellegarde,27,Wolverhampton Wanderers,€20.9M
+Nicolás Domínguez,27,Nottingham Forest,€20.9M
+Jadon Sancho,25,Aston Villa,€20.8M
+Florentino,26,Burnley FC,€20.8M
+Beto,27,Everton FC,€20.7M
+James Garner,24,Everton FC,€20.7M
+Christantus Uche,22,Crystal Palace,€20.7M
+Pascal Struijk,26,Leeds United,€20.7M
+Gabriel Jesus,28,Arsenal FC,€20.6M
+Federico Chiesa,28,Liverpool FC,€20.2M
+Quilindschy Hartman,23,Burnley FC,€20.1M
+Jair Cunha,20,Nottingham Forest,€20M
+Aaron Hickey,23,Brentford FC,€19.9M
+William Osula,22,Newcastle United,€19.8M
+Soungoutou Magassa,22,West Ham United,€19.7M
+Leandro Trossard,30,Arsenal FC,€19.7M
+Loum Tchaouna,22,Burnley FC,€19.7M
+Eli Kroupi,19,Bournemouth,€19.6M
+Fábio Carvalho,23,Brentford FC,€19.6M
+Eliezer Mayenda,20,Sunderland AFC,€19.5M
+Ladislav Krejci,26,Wolverhampton Wanderers,€19.3M
+Richarlison,28,Tottenham,€19.3M
+John McGinn,31,Aston Villa,€19.2M
+Lucas Perri,27,Leeds United,€19.1M
+Wilson Isidor,25,Sunderland AFC,€19M
+Donyell Malen,26,Aston Villa,€18.9M
+Trai Hume,23,Sunderland AFC,€18.8M
+Kristoffer Ajer,27,Brentford FC,€18.8M
+Fer López,21,Wolverhampton Wanderers,€18.8M
+Vitaly Janelt,27,Brentford FC,€18.6M
+Aaron Ramsdale,27,Newcastle United,€18.6M
+Nathan Aké,30,Manchester City,€18.6M
+Lutsharel Geertruida,25,Sunderland AFC,€18.6M
+Chadi Riad,22,Crystal Palace,€18.5M
+Josh Acheampong,19,Chelsea,€18.5M
+Yves Bissouma,29,Tottenham,€18.5M
+Joël Piroe,26,Leeds United,€18.5M
+Jaidon Anthony,25,Burnley FC,€18.3M
+Sean Longstaff,28,Leeds United,€18.3M
+Morato,24,Nottingham Forest,€18.3M
+Jhon Arias,28,Wolverhampton Wanderers,€18.2M
+Anton Stach,26,Leeds United,€18.2M
+Marshall Munetsi,29,Wolverhampton Wanderers,€18.1M
+Konstantinos Mavropanos,27,West Ham United,€18.1M
+Carlos Alcaraz,22,Everton FC,€18M
+Jackson Tchatchoua,24,Wolverhampton Wanderers,€17.9M
+Joe Willock,26,Newcastle United,€17.8M
+Olivier Boscagli,27,Brighton & Hove Albion,€17.7M
+Lewis Cook,28,Bournemouth,€17.6M
+Marcos Senesi,28,Bournemouth,€17.6M
+Dominic Calvert-Lewin,28,Leeds United,€17.5M
+Noah Okafor,25,Leeds United,€17.4M
+Brenden Aaronson,25,Leeds United,€17.4M
+Igor Julio,27,West Ham United,€17.3M
+Robin Roefs,22,Sunderland AFC,€17M
+Granit Xhaka,33,Sunderland AFC,€17M
+Antonín Kinský,22,Tottenham,€16.9M
+Nicolò Savona,22,Nottingham Forest,€16.8M
+Ryan Sessegnon,25,Fulham FC,€16.8M
+James Justin,27,Leeds United,€16.8M
+Armando Broja,24,Burnley FC,€16.7M
+Joe Gomez,28,Liverpool FC,€16.7M
+Mats Wieffer,25,Brighton & Hove Albion,€16.6M
+Nathan Patterson,24,Everton FC,€16.6M
+Hannibal,22,Burnley FC,€16.5M
+Reiss Nelson,25,Brentford FC,€16.4M
+Romain Esse,20,Crystal Palace,€16.4M
+Kenny Tete,30,Fulham FC,€16.4M
+Alisson,33,Liverpool FC,€16.2M
+Jack Harrison,28,Leeds United,€16.1M
+Josh King,18,Fulham FC,€16.1M
+Toti,26,Wolverhampton Wanderers,€16M
+Anthony Patterson,25,Sunderland AFC,€16M
+Emiliano Martínez,33,Aston Villa,€16M
+Diego Coppola,21,Brighton & Hove Albion,€15.9M
+Chris Richards,25,Crystal Palace,€15.8M
+Gabriel Gudmundsson,26,Leeds United,€15.7M
+Ayden Heaven,19,Manchester United,€15.7M
+Jordan Pickford,31,Everton FC,€15.6M
+Mateo Kovacic,31,Manchester City,€15.6M
+Kyle Walker-Peters,28,West Ham United,€15.3M
+Emiliano Buendía,28,Aston Villa,€15.1M
+Oleksandr Zinchenko,28,Nottingham Forest,€15M
+Marc Guiu,19,Chelsea,€14.5M
+Jayden Bogle,25,Leeds United,€14.4M
+Saša Lukić,29,Fulham FC,€14.4M
+Samuel Chukwueze,26,Fulham FC,€14.4M
+Ryan Yates,27,Nottingham Forest,€14.4M
+Rico Henry,28,Brentford FC,€14.4M
+Julián Araujo,24,Bournemouth,€14.4M
+Daniel James,28,Leeds United,€14.4M
+Bashir Humphreys,22,Burnley FC,€14.3M
+Taiwo Awoniyi,28,Nottingham Forest,€14.3M
+David Brooks,28,Bournemouth,€14.3M
+Illan Meslier,25,Leeds United,€14.2M
+Timothy Castagne,29,Fulham FC,€14.1M
+Stefan Bajcetic,21,Liverpool FC,€14.1M
+John Stones,31,Manchester City,€14M
+Andrew Robertson,31,Liverpool FC,€14M
+Yerson Mosquera,24,Wolverhampton Wanderers,€13.8M
+Jacob Murphy,30,Newcastle United,€13.7M
+Bernd Leno,33,Fulham FC,€13.5M
+Santiago Bueno,27,Wolverhampton Wanderers,€13.5M
+Tomáš Souček,30,West Ham United,€13.5M
+Ao Tanaka,27,Leeds United,€13.4M
+Daniel George Ballard,26,Sunderland AFC,€13.2M
+Lucas Digne,32,Aston Villa,€13.2M
+Oliver Scarles,19,West Ham United,€13.2M
+Senne Lammens,23,Manchester United,€13.1M
+Zeki Amdouni,24,Burnley FC,€13.1M
+Omar Alderete,28,Sunderland AFC,€13M
+Marcus Edwards,26,Burnley FC,€12.9M
+Harry Maguire,32,Manchester United,€12.9M
+Julio Soler,20,Bournemouth,€12.9M
+Luke Shaw,30,Manchester United,€12.7M
+Adam Aznou,19,Everton FC,€12.5M
+Mathias Jensen,29,Brentford FC,€12.3M
+Lamare Bogarde,21,Aston Villa,€12.3M
+Kota Takai,21,Tottenham,€12.3M
+Tim Iroegbunam,22,Everton FC,€12.2M
+Nordi Mukiele,28,Sunderland AFC,€12.1M
+Enes Ünal,28,Bournemouth,€12M
+Joe Rodon,28,Leeds United,€11.9M
+Merlin Röhl,23,Everton FC,€11.8M
+Kalvin Phillips,29,Manchester City,€11.8M
+Hugo Bueno,23,Wolverhampton Wanderers,€11.6M
+Lyle Foster,25,Burnley FC,€11.3M
+Daichi Kamada,29,Crystal Palace,€11.3M
+Niclas Füllkrug,32,West Ham United,€11M
+Ilia Gruev,25,Leeds United,€10.9M
+Zian Flemming,27,Burnley FC,€10.9M
+Christian Nørgaard,31,Arsenal FC,€10.7M
+Altay Bayındır,27,Manchester United,€10.7M
+Virgil van Dijk,34,Liverpool FC,€10.7M
+Dan Neil,23,Sunderland AFC,€10.6M
+Dennis Cirkin,23,Sunderland AFC,€10.5M
+Ryan Christie,30,Bournemouth,€10.4M
+Romaine Mundle,22,Sunderland AFC,€10.2M
+Max Weiß,21,Burnley FC,€10M
+John Victor,29,Nottingham Forest,€9.9M
+Hee-chan Hwang,29,Wolverhampton Wanderers,€9.7M
+Will Hughes,30,Crystal Palace,€9.7M
+Jonah Kusi-Asare,18,Fulham FC,€9.6M
+Frank Onyeka,27,Brentford FC,€9.5M
+Trey Nyoni,18,Liverpool FC,€9.3M
+Jack Hinshelwood,20,Brighton & Hove Albion,€9.2M
+Justin Devenny,22,Crystal Palace,€8.9M
+Issa Diop,28,Fulham FC,€8.8M
+Alphonse Areola,32,West Ham United,€8.8M
+Josh Cullen,29,Burnley FC,€8.7M
+Lucas Pires,24,Burnley FC,€8M
+Andrés García,22,Aston Villa,€7.9M
+José Sá,32,Wolverhampton Wanderers,€7.6M
+James Ward-Prowse,31,West Ham United,€7.6M
+James Hill,23,Bournemouth,€7.6M
+Matz Sels,33,Nottingham Forest,€7.5M
+Victor Lindelöf,31,Aston Villa,€7.2M
+Casemiro,33,Manchester United,€7.2M
+Sebastiaan Bornauw,26,Leeds United,€7.2M
+Jefferson Lerma,31,Crystal Palace,€7.2M
+Guido Rodríguez,31,West Ham United,€7.2M
+Wataru Endo,32,Liverpool FC,€7.1M
+Raheem Sterling,30,Chelsea,€7M
+Chris Wood,33,Nottingham Forest,€6.9M
+Adama Traoré,29,Fulham FC,€6.6M
+Ethan Pinnock,32,Brentford FC,€6.5M
+James Tarkowski,32,Everton FC,€6.5M
+Stefan Ortega,33,Manchester City,€6.4M
+Kepa Arrizabalaga,31,Arsenal FC,€6.4M
+Adam Webster,30,Brighton & Hove Albion,€6.4M
+Jacob Bruun Larsen,27,Burnley FC,€6.3M
+Tyrell Malacia,26,Manchester United,€6.3M
+Jorge Cuenca,25,Fulham FC,€6.2M
+Romelle Donovan,18,Brentford FC,€6.1M
+Nick Pope,33,Newcastle United,€6.1M
+Gabriel Slonina,21,Chelsea,€6.1M
+Chido Obi,17,Manchester United,€6M
+Sam Johnstone,32,Wolverhampton Wanderers,€6M
+Rodrigo Muniz,24,Fulham FC,€6M
+Lukas Nmecha,26,Leeds United,€6M
+Mike Tresor,26,Burnley FC,€5.8M
+Walter Benítez,32,Crystal Palace,€5.8M
+Ki-Jana Hoever,23,Wolverhampton Wanderers,€5.8M
+Freddie Potts,22,West Ham United,€5.8M
+Tyler Fredricson,20,Manchester United,€5.6M
+Bertrand Traoré,30,Sunderland AFC,€5.6M
+Yunus Konak,19,Brentford FC,€5.4M
+Fabian Schär,33,Newcastle United,€5.4M
+Mark Travers,26,Everton FC,€5.3M
+Dan Burn,33,Newcastle United,€5.1M
+Harrison Reed,30,Fulham FC,€5M
+Oliver Sonne,25,Burnley FC,€4.9M
+Joe Worrall,28,Burnley FC,€4.9M
+Borna Sosa,27,Crystal Palace,€4.9M
+Connor Roberts,30,Burnley FC,€4.8M
+Dane Scarlett,21,Tottenham,€4.7M
+Jordan Beyer,25,Burnley FC,€4.7M
+Raúl Jiménez,34,Fulham FC,€4.6M
+David Møller Wolfe,23,Wolverhampton Wanderers,€4.2M
+Danny Welbeck,34,Brighton & Hove Albion,€4.2M
+Hjalmar Ekdal,27,Burnley FC,€4.2M
+Leo Hjelde,22,Sunderland AFC,€4.2M
+Kyle Walker,35,Burnley FC,€4.1M
+Tyrone Mings,32,Aston Villa,€4M
+Ben Davies,32,Tottenham,€3.9M
+Reinildo Mandava,31,Sunderland AFC,€3.7M
+Lewis Dunk,33,Brighton & Hove Albion,€3.6M
+Axel Tuanzebe,27,Burnley FC,€3.6M
+Marco Bizot,34,Aston Villa,€3.5M
+Michael Keane,32,Everton FC,€3.2M
+Naouirou Ahamada,23,Crystal Palace,€2.7M
+Timothée Pembélé,23,Sunderland AFC,€2.5M
+Freddie Woodman,28,Liverpool FC,€2.5M
+Joshua Dasilva,27,Brentford FC,€2.4M
+Hákon Valdimarsson,24,Brentford FC,€2.4M
+Solly March,31,Brighton & Hove Albion,€2.4M
+Ross Barkley,31,Aston Villa,€2.4M
+Kieran Trippier,35,Newcastle United,€2.3M
+Joël Veltman,33,Brighton & Hove Albion,€2.3M
+Andrew Irving,25,West Ham United,€2.3M
+Matt Doherty,33,Wolverhampton Wanderers,€2.3M
+Abdoullah Ba,22,Sunderland AFC,€2.3M
+Jamaal Lascelles,31,Newcastle United,€2M
+George Earthy,21,West Ham United,€2M
+Arthur Masuaku,32,Sunderland AFC,€1.9M
+Callum Marshall,20,West Ham United,€1.9M
+Caleb Kporha,19,Crystal Palace,€1.8M
+Hannes Delcroix,26,Burnley FC,€1.8M
+Jaydon Banel,21,Burnley FC,€1.7M
+Jordan Henderson,35,Brentford FC,€1.7M
+Angus Gunn,29,Nottingham Forest,€1.6M
+Matai Akinmboni,19,Bournemouth,€1.6M
+Aji Alese,24,Sunderland AFC,€1.6M
+Idrissa Gueye,36,Everton FC,€1.6M
+Josh Laurent,30,Burnley FC,€1.6M
+Luke O'Nien,30,Sunderland AFC,€1.5M
+Harrison Ashby,23,Newcastle United,€1.5M
+Emil Krafth,31,Newcastle United,€1.5M
+Benjamin Lecomte,34,Fulham FC,€1.4M
+Ahmed Abdullahi,21,Sunderland AFC,€1.4M
+Daniel Bentley,32,Wolverhampton Wanderers,€1.2M
+Will Dennis,25,Bournemouth,€1.2M
+Ian Poveda,25,Sunderland AFC,€1.2M
+Harrison Jones,20,Sunderland AFC,€1.1M
+Matthew Cox,22,Brentford FC,€1.1M
+Tom Cairney,34,Fulham FC,€1M
+James Milner,39,Brighton & Hove Albion,€1M
+Nathaniel Clyne,34,Crystal Palace,€1M
+Enock Agyei,20,Burnley FC,€1M
+Rio Cardines,,Crystal Palace,€1M
+Martin Dúbravka,36,Burnley FC,€1.0M
+Willy Boly,34,Nottingham Forest,€0.9M
+Paris Maghoma,24,Brentford FC,€0.9M
+Adam Smith,34,Bournemouth,€0.9M
+Myles Peart-Harris,23,Brentford FC,€0.9M
+Łukasz Fabiański,40,West Ham United,€0.8M
+Tawanda Chirewa,22,Wolverhampton Wanderers,€0.8M
+Brandon Austin,26,Tottenham,€0.7M
+Sam Byram,32,Leeds United,€0.7M
+Alex Murphy,21,Newcastle United,€0.7M
+Jason Steele,35,Brighton & Hove Albion,€0.7M
+John Ruddy,39,Newcastle United,€0.7M
+Ashley Barnes,36,Burnley FC,€0.7M
+Tom McGill,25,Brighton & Hove Albion,€0.7M
+Kieran Morrison,,Liverpool FC,€0.7M
+Ellery Balcombe,26,Brentford FC,€0.7M
+Blondy Nna Noukeu,24,Sunderland AFC,€0.7M
+Séamus Coleman,37,Everton FC,€0.6M
+Václav Hladký,34,Burnley FC,€0.6M
+Joel Ward,36,Crystal Palace,€0.6M
+Marcus Bettinelli,33,Manchester City,€0.6M
+Harry Tyrer,23,Everton FC,€0.6M
+Alex Cairns,32,Leeds United,€0.6M
+Max Thompson,21,Newcastle United,€0.5M
+Rhys Williams,24,Liverpool FC,€0.5M
+Joe Anderson,24,Sunderland AFC,€0.5M
+Jay Matete,24,Sunderland AFC,€0.5M
+Craig Dawson,35,Wolverhampton Wanderers,€0.5M
+Tom King,30,Everton FC,€0.4M
+Simon Moore,35,Sunderland AFC,€0.4M
+Mark Gillespie,33,Newcastle United,€0.4M
+Remi Matthews,31,Crystal Palace,€0.4M
+Karl Darlow,35,Leeds United,€0.4M
+Tom Heaton,39,Manchester United,€0.4M
+Nikolaj Kirk,27,Brentford FC,€0.2M
+Josuha Guilavogui,35,Leeds United,€0.1M
+Julian Eyestone,19,Brentford FC,€0.1M
+Max Dowman,16,Arsenal FC,€0.1M

@@ -37,7 +37,7 @@ df['MainPos'] = df['Position'].astype(str).str.strip().str[:2]
 
 # CHUYỂN ĐỔI DỮ LIỆU SỐ
 
-for column in df.columns:
+for column in df.columns:   
     if column not in ['Name', 'Nation', 'Team', 'Position', 'MainPos']:
         df[column] = pd.to_numeric(df[column], errors='coerce')
 

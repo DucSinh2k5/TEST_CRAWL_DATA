@@ -18,7 +18,7 @@ for page in range(1,17):
     else :
         url = f"https://www.footballtransfers.com/us/transfers/confirmed/most-recent/2024-2025/uk-premier-league/{page}"
     
-    
+
     driver.get(url)
     sleep(1)
     

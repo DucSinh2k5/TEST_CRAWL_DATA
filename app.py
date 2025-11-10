@@ -31,7 +31,7 @@ def get_player_by_name():
 
     conn = db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM CauThu WHERE Player LIKE ?", (f"%{name}%",))
+    cursor.execute("SELECT * FROM Cau_Thu WHERE Name LIKE ?", (f"%{name}%",))
     players = cursor.fetchall()
     conn.close()
 
@@ -50,7 +50,7 @@ def get_players_by_club():
 
     conn = db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM CauThu WHERE Squad LIKE ?", (f"%{squad}%",))
+    cursor.execute("SELECT * FROM Cau_Thu WHERE Team LIKE ?", (f"%{squad}%",))
     players = cursor.fetchall()
     conn.close()
 
