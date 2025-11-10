@@ -10,6 +10,7 @@ options = webdriver.ChromeOptions()
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
+
 data = []
 
 for page in range(1,17):

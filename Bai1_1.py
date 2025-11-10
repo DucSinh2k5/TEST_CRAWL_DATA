@@ -13,6 +13,7 @@ options_chrome = webdriver.ChromeOptions()
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options_chrome)
 
+
 # Danh sách tất cả các cột thuộc tính
 players = [
     'Name', 'Nation', 'Team', 'Position', 'Age','Born',

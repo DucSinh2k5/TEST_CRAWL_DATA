@@ -41,6 +41,7 @@ for page in range(1, 23):
         })
 
 
+
 driver.quit()
 
 
