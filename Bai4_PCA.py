@@ -27,7 +27,6 @@ X_imputed = pd.DataFrame(imputer.fit_transform(X), columns=X.columns, index=X.in
 sc = StandardScaler()
 X_scaled = sc.fit_transform(X_imputed)
  
- 
 n_clusters = 3
 kmeans = KMeans(n_clusters=n_clusters, init='k-means++', max_iter=300, n_init=10, random_state=42)
 labels = kmeans.fit_predict(X_scaled)

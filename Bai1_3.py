@@ -12,6 +12,7 @@ driver = webdriver.Chrome(service=service, options=options)
 
 data = []
 
+
 for page in range(1, 23):
     if page == 1:
         url = "https://www.footballtransfers.com/us/values/players/most-valuable-soccer-players/playing-in-uk-premier-league"

@@ -46,8 +46,6 @@ for k in k_values:
     overall_mse = sq_dists.mean()
     overall_mse_list.append(overall_mse)
 
-  
-  
     if k > 1:
         silhouette = silhouette_score(X_scaled, labels)
     else:

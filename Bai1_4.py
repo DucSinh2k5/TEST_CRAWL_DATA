@@ -48,6 +48,7 @@ cur.execute("""
 """)
 
 
+
 for _, row in result.iterrows():
     cur.execute("INSERT INTO CHUYEN_NHUONG VALUES (?, ?, ?, ?)", tuple(row))
 
