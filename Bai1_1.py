@@ -1,4 +1,4 @@
-# === PHẦN 1: IMPORT THƯ VIỆN ===
+
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -7,17 +7,19 @@ from bs4 import BeautifulSoup
 from time import sleep
 import os
 import sqlite3
-import shutil
 
-# === PHẦN 2: KHỞI TẠO BIẾN VÀ TRÌNH DUYỆT ===
+
+options_chrome = webdriver.ChromeOptions()
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=options_chrome)
 
 # Danh sách tất cả các cột thuộc tính
 players = [
-    'Name', 'Nation', 'Team', 'Position', 'Age',
-    'Matches', 'Starts', 'Minutes',
-    'non_penalty_goals', 'penalty_goals', 'assists', 'yellow_cards',
+    'Name', 'Nation', 'Team', 'Position', 'Age','Born',
+    'Matches', 'Starts', 'Minutes', '90s', 'G+A',
+    'non_penalty_goals', 'penalty_goals', 'yellow_cards',
     'red_cards',
-    'xG', 'npxG', 'xAG',
+    'xG', 'npxG', 'xAG', 'npxG+xAG',
     'PrgC', 'PrgP', 'PrgR',
     'per90_Gls', 'per90_Ast', 'per90_G+A', 'per90_G-PK',
     'per90_G+A-PK', 'per90_xG', 'per90_xAG', 'per90_xG+xAG',
@@ -53,14 +55,14 @@ players = [
 ]
 
 
-options_chrome = webdriver.ChromeOptions()
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options_chrome)
+
 #Satandart stats
 driver.get("https://fbref.com/en/comps/9/2024-2025/stats/2024-2025-Premier-League-Stats")
 sleep(1)
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
+
+
 table = soup.find('table', {'id': 'stats_standard'})
 data = []
 
@@ -77,10 +79,12 @@ for row in rows:
     player['Position'] = cols[2].text.strip() if cols[2].text.strip() else "N/A"
     player['Team'] = cols[3].text.strip() if cols[3].text.strip() else "N/A"
     player['Age'] = cols[4].text.strip() if cols[4].text.strip() else "N/A"
-    player['Matches'] = cols[5].text.strip() if cols[5].text.strip() else "N/A"
-    player['Starts'] = cols[6].text.strip() if cols[6].text.strip() else "N/A"
+    player['Born'] = cols[5].text.strip() if cols[5].text.strip() else "N/A"
+    player['Matches'] = cols[6].text.strip() if cols[6].text.strip() else "N/A"
+    player['Starts'] = cols[7].text.strip() if cols[7].text.strip() else "N/A"
     player['Minutes'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
-    player['assists'] = cols[11].text.strip() if cols[11].text.strip() else "N/A"
+    player['90s'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
+    player['G+A'] = cols[12].text.strip() if cols[12].text.strip() else "N/A"
     player['non_penalty_goals'] = cols[13].text.strip() if cols[13].text.strip() else "N/A"
     player['penalty_goals'] = cols[14].text.strip() if cols[14].text.strip() else "N/A"
     player['yellow_cards'] = cols[16].text.strip() if cols[16].text.strip() else "N/A"
@@ -88,6 +92,7 @@ for row in rows:
     player['xG'] = cols[18].text.strip() if cols[18].text.strip() else "N/A"
     player['npxG'] = cols[19].text.strip() if cols[19].text.strip() else "N/A"
     player['xAG'] = cols[20].text.strip() if cols[20].text.strip() else "N/A"
+    player['npxG+xAG'] = cols[21].text.strip() if cols[21].text.strip() else "N/A"
     player['PrgC'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
     player['PrgP'] = cols[23].text.strip() if cols[23].text.strip() else "N/A"
     player['PrgR'] = cols[24].text.strip() if cols[24].text.strip() else "N/A"
@@ -96,6 +101,12 @@ for row in rows:
     player['per90_G+A'] = cols[27].text.strip() if cols[27].text.strip() else "N/A"
     player['per90_G-PK'] = cols[28].text.strip() if cols[28].text.strip() else "N/A"
     player['per90_G+A-PK'] = cols[29].text.strip() if cols[29].text.strip() else "N/A"
+    player['per90_xG'] = cols[30].text.strip() if cols[30].text.strip() else "N/A"
+    player['per90_xAG'] = cols[31].text.strip() if cols[31].text.strip() else "N/A"
+    player['per90_xG+xAG'] = cols[32].text.strip() if cols[32].text.strip() else "N/A"
+    player['per90_npxG'] = cols[33].text.strip() if cols[33].text.strip() else "N/A"
+    player['per90_npxG+xAG'] = cols[34].text.strip() if cols[34].text.strip() else "N/A"
+
     
     minutes_value = player['Minutes'].replace(',', '')
     if minutes_value != "N/A" and int(minutes_value) > 90:
@@ -106,8 +117,10 @@ driver.get("https://fbref.com/en/comps/9/2024-2025/keepers/2024-2025-Premier-Lea
 sleep(1)
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
+
 table_gk = soup.find('table', {'id': 'stats_keeper'})
 new_GK_data = [] 
+
 rows = table_gk.tbody.find_all('tr') 
 for row in rows:
     cols = row.find_all('td')
@@ -149,7 +162,7 @@ for row in rows:
         continue
     player = {col: "N/A" for col in players} 
     
-    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
+    player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"    
     player['PKA'] = cols[8].text.strip() if cols[8].text.strip() else "N/A"
     player['FK'] = cols[9].text.strip() if cols[9].text.strip() else "N/A"
     player['CK'] = cols[10].text.strip() if cols[10].text.strip() else "N/A"
@@ -440,19 +453,24 @@ for row in rows:
     player['Won%'] = cols[22].text.strip() if cols[22].text.strip() else "N/A"
     misc_data.append(player)
 
-combined_data = [dict(p) for p in data]
 
+combined_data = [dict(p) for p in data]
 name_to_idx = {p.get('Name'): i for i, p in enumerate(combined_data) if p.get('Name')}
+
 
 other_tables = [
     new_GK_data, adv_GK_data, shooting_data, passing_data, pass_types_data,
     gca_data, defense_data, possession_data, playing_time_data, misc_data
 ]
+
+
 for table in other_tables:
     for p in table:
         name = p.get('Name')
         if not name:
             continue
+
+        
         if name in name_to_idx:
             idx = name_to_idx[name]
           

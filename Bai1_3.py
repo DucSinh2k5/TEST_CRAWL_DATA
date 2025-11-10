@@ -18,11 +18,15 @@ for page in range(1, 23):
     else:
         url = f"https://www.footballtransfers.com/us/values/players/most-valuable-soccer-players/playing-in-uk-premier-league/{page}"
 
+
     driver.get(url)
     sleep(1)
-    soup = BeautifulSoup(driver.page_source, "html.parser")
 
+
+    soup = BeautifulSoup(driver.page_source, "html.parser")
     rows = soup.select("tbody#player-table-body tr")
+
+
     for r in rows:
         name = r.select_one("td.td-player span.d-none")
         age = r.select_one("td.m-hide.age")

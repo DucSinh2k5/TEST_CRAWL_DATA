@@ -6,19 +6,29 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
+from sklearn.impute import SimpleImputer
 
 
-df = pd.read_csv("BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT.csv")
 
-if "Unnamed: 0" in df.columns:
-    df = df.drop(columns=["Unnamed: 0"])
-
-df["Min"] = df["Min"].astype(str).str.replace(",", "").astype(int)
+# Đọc dữ liệu
+df = pd.read_csv("bang1.csv")
 
 
-X = df.drop(columns=["Player", "Nation", "Pos", "Squad"])
+feature = df.loc[:, 'Matches':].copy()
+for col in feature.columns:
+    if feature[col].dtype == 'object':
+        feature[col] = feature[col].str.replace(',', '').replace('N/a', np.nan).astype(float)
+    else:
+        feature[col] = feature[col].astype(float)
+feature = feature.fillna(0)
+
+
+imputer = SimpleImputer(strategy='mean')
+feature_imputed = pd.DataFrame(imputer.fit_transform(feature), columns=feature.columns, index=feature.index)
+
+# Chuẩn hoá
 sc = StandardScaler()
-X_scaled = sc.fit_transform(X)
+X_scaled = sc.fit_transform(feature_imputed)
 
 
 max_k = 10

@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
@@ -6,23 +8,26 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
 
-file_path = "BANG_CAU_THU_NGOAI_HANG_ANH_CO_SO_PHUT_THI_DAU_HON_90_PHUT.csv"
-df = pd.read_csv(file_path)
+df = pd.read_csv("bang1.csv")
 
 
-if "Unnamed: 0" in df.columns:
-    df = df.drop(columns=["Unnamed: 0"])
-df["Min"] = df["Min"].astype(str).str.replace(",", "").astype(float)
+X = df.loc[:, 'Matches':].copy()
+for col in X.columns:
+    if X[col].dtype == 'object':
+        X[col] = X[col].str.replace(',', '').replace('N/a', np.nan).astype(float)
+    else:
+        X[col] = X[col].astype(float)
+X = X.fillna(0)
 
 
-X = df.drop(columns=["Player", "Nation", "Pos", "Squad"])
+imputer = SimpleImputer(strategy='mean')
+X_imputed = pd.DataFrame(imputer.fit_transform(X), columns=X.columns, index=X.index)
 
-
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-
-n_clusters = 5
+# Chuẩn hoá
+sc = StandardScaler()
+X_scaled = sc.fit_transform(X_imputed)
+ 
+n_clusters = 3
 kmeans = KMeans(n_clusters=n_clusters, init='k-means++', max_iter=300, n_init=10, random_state=42)
 labels = kmeans.fit_predict(X_scaled)
 
