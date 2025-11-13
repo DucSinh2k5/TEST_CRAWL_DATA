@@ -35,7 +35,7 @@ Savinho,21,Manchester City,€66.7M
 Morgan Rogers,23,Aston Villa,€66.2M
 Jérémy Doku,23,Manchester City,€65.8M
 Sandro Tonali,25,Newcastle United,€65.6M
-Leny Yoro,19,Manchester United,€65.5M
+Leny Yoro,20,Manchester United,€65.5M
 Murillo,23,Nottingham Forest,€65.2M
 Bryan Mbeumo,26,Manchester United,€64.9M
 Ollie Watkins,29,Aston Villa,€64.7M
@@ -57,7 +57,7 @@ Dejan Kulusevski,25,Tottenham,€57.7M
 Rico Lewis,20,Manchester City,€55.9M
 Levi Colwill,22,Chelsea,€55.9M
 Jorrel Hato,19,Chelsea,€55.6M
-Tino Livramento,22,Newcastle United,€55.5M
+Tino Livramento,23,Newcastle United,€55.5M
 Rúben Dias,28,Manchester City,€55.4M
 Lucas Bergvall,19,Tottenham,€55.2M
 Yankuba Minteh,21,Brighton & Hove Albion,€55M
@@ -222,7 +222,7 @@ Axel Disasi,27,Chelsea,€24.8M
 Ibrahima Sangaré,27,Nottingham Forest,€24.8M
 Robert Sánchez,27,Chelsea,€24.7M
 Cheick Doucouré,25,Crystal Palace,€24.7M
-Ben Gannon-Doak,19,Bournemouth,€24.6M
+Ben Gannon-Doak,20,Bournemouth,€24.6M
 Maximilian Kilman,28,West Ham United,€24.5M
 Tyrique George,19,Chelsea,€24.4M
 Noah Sadiki,20,Sunderland AFC,€24.1M
@@ -293,6 +293,7 @@ Anton Stach,26,Leeds United,€18.2M
 Marshall Munetsi,29,Wolverhampton Wanderers,€18.1M
 Konstantinos Mavropanos,27,West Ham United,€18.1M
 Carlos Alcaraz,22,Everton FC,€18M
+Tom Watson,19,Brighton & Hove Albion,€18M
 Jackson Tchatchoua,24,Wolverhampton Wanderers,€17.9M
 Joe Willock,26,Newcastle United,€17.8M
 Olivier Boscagli,27,Brighton & Hove Albion,€17.7M
@@ -364,7 +365,6 @@ Harry Maguire,32,Manchester United,€12.9M
 Julio Soler,20,Bournemouth,€12.9M
 Luke Shaw,30,Manchester United,€12.7M
 Adam Aznou,19,Everton FC,€12.5M
-Mathias Jensen,29,Brentford FC,€12.3M
 Lamare Bogarde,21,Aston Villa,€12.3M
 Kota Takai,21,Tottenham,€12.3M
 Tim Iroegbunam,22,Everton FC,€12.2M
@@ -470,7 +470,7 @@ Joël Veltman,33,Brighton & Hove Albion,€2.3M
 Andrew Irving,25,West Ham United,€2.3M
 Matt Doherty,33,Wolverhampton Wanderers,€2.3M
 Abdoullah Ba,22,Sunderland AFC,€2.3M
-Jamaal Lascelles,31,Newcastle United,€2M
+Jamaal Lascelles,32,Newcastle United,€2M
 George Earthy,21,West Ham United,€2M
 Arthur Masuaku,32,Sunderland AFC,€1.9M
 Callum Marshall,20,West Ham United,€1.9M
@@ -482,6 +482,7 @@ Angus Gunn,29,Nottingham Forest,€1.6M
 Matai Akinmboni,19,Bournemouth,€1.6M
 Aji Alese,24,Sunderland AFC,€1.6M
 Idrissa Gueye,36,Everton FC,€1.6M
+Zach Abbott,19,Nottingham Forest,€1.6M
 Josh Laurent,30,Burnley FC,€1.6M
 Luke O'Nien,30,Sunderland AFC,€1.5M
 Harrison Ashby,23,Newcastle United,€1.5M
@@ -498,11 +499,13 @@ James Milner,39,Brighton & Hove Albion,€1M
 Nathaniel Clyne,34,Crystal Palace,€1M
 Enock Agyei,20,Burnley FC,€1M
 Rio Cardines,,Crystal Palace,€1M
+Ármin Pécsi,20,Liverpool FC,€1.0M
 Martin Dúbravka,36,Burnley FC,€1.0M
 Willy Boly,34,Nottingham Forest,€0.9M
 Paris Maghoma,24,Brentford FC,€0.9M
 Adam Smith,34,Bournemouth,€0.9M
 Myles Peart-Harris,23,Brentford FC,€0.9M
+Luca Gunter,20,Tottenham,€0.8M
 Łukasz Fabiański,40,West Ham United,€0.8M
 Tawanda Chirewa,22,Wolverhampton Wanderers,€0.8M
 Brandon Austin,26,Tottenham,€0.7M
@@ -512,7 +515,6 @@ Jason Steele,35,Brighton & Hove Albion,€0.7M
 John Ruddy,39,Newcastle United,€0.7M
 Ashley Barnes,36,Burnley FC,€0.7M
 Tom McGill,25,Brighton & Hove Albion,€0.7M
-Kieran Morrison,,Liverpool FC,€0.7M
 Ellery Balcombe,26,Brentford FC,€0.7M
 Blondy Nna Noukeu,24,Sunderland AFC,€0.7M
 Séamus Coleman,37,Everton FC,€0.6M
@@ -521,7 +523,7 @@ Joel Ward,36,Crystal Palace,€0.6M
 Marcus Bettinelli,33,Manchester City,€0.6M
 Harry Tyrer,23,Everton FC,€0.6M
 Alex Cairns,32,Leeds United,€0.6M
-Max Thompson,21,Newcastle United,€0.5M
+Mateus Mané,,Wolverhampton Wanderers,€0.6M
 Rhys Williams,24,Liverpool FC,€0.5M
 Joe Anderson,24,Sunderland AFC,€0.5M
 Jay Matete,24,Sunderland AFC,€0.5M
@@ -532,6 +534,8 @@ Mark Gillespie,33,Newcastle United,€0.4M
 Remi Matthews,31,Crystal Palace,€0.4M
 Karl Darlow,35,Leeds United,€0.4M
 Tom Heaton,39,Manchester United,€0.4M
+Kornel Misciur,18,Liverpool FC,€0.3M
+Tommy Setford,19,Arsenal FC,€0.3M
 Nikolaj Kirk,27,Brentford FC,€0.2M
 Josuha Guilavogui,35,Leeds United,€0.1M
 Julian Eyestone,19,Brentford FC,€0.1M

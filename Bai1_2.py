@@ -68,7 +68,9 @@ for page in range(1,17):
 df= pd.DataFrame(data)
 print(df)
 df.to_csv("bang2.csv")
+
 print("DONE")
+print(f"Số hàng trong CSV: {len(df)}")
          
 
         

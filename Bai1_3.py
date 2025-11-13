@@ -46,4 +46,7 @@ driver.quit()
 
 df = pd.DataFrame(data)
 df.to_csv("bang3.csv", index=False, encoding="utf-8-sig")
+
 print("DONE ✅")
+
+print(f"Số hàng trong CSV: {len(df)}")

@@ -73,6 +73,7 @@ for row in rows:
     cols = row.find_all('td')
     if not cols:
         continue
+    
     player = {col: "N/A" for col in players}
     
     player['Name'] = cols[0].text.strip() if cols[0].text.strip() else "N/A"
@@ -493,7 +494,7 @@ df_over90 = df_combined[df_combined['Minutes_num'] > 90].copy()
 
 
 df_over90.to_csv("bang1.csv", index=False)
-
+print(f"Số hàng trong CSV: {len(df_over90)}")
 
 base_dir = os.path.dirname(__file__)
 db_path = os.path.join(base_dir, "premier_league.db")
