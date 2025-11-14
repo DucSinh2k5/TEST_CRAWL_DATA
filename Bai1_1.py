@@ -500,6 +500,8 @@ base_dir = os.path.dirname(__file__)
 db_path = os.path.join(base_dir, "premier_league.db")
 
 conn = sqlite3.connect(db_path)
+conn.execute("DROP TABLE IF EXISTS Cau_Thu")
+
 df_over90.to_sql("Cau_Thu", conn, if_exists="replace", index=False, method="multi", chunksize=100)
 conn.close()
 

@@ -28,6 +28,7 @@ result1 = result1.rename(columns={'Age_y': 'Age', 'Team_y': 'Team'})
 # lưu DB
 conn = sqlite3.connect("premier_league.db")
 cur = conn.cursor()
+
 cur.execute("DROP TABLE IF EXISTS GIA_TRI_CAU_THU")
 cur.execute("DROP TABLE IF EXISTS CHUYEN_NHUONG")
 cur.execute("""
